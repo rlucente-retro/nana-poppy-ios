@@ -26,6 +26,7 @@
 		A1000021 /* MessageGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000020 /* MessageGeneratorTests.swift */; };
 		A1000023 /* NumberToWordsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000022 /* NumberToWordsTests.swift */; };
 		A1000025 /* MainViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000024 /* MainViewModelTests.swift */; };
+		A1000044 /* AudioDownloaderIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000043 /* AudioDownloaderIntegrationTests.swift */; };
 /* END PBXBuildFile section */
 
 /* BEGIN PBXContainerItemProxy section */
@@ -58,6 +59,7 @@
 		A1000020 /* MessageGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils/MessageGeneratorTests.swift; sourceTree = "<group>"; };
 		A1000022 /* NumberToWordsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils/NumberToWordsTests.swift; sourceTree = "<group>"; };
 		A1000024 /* MainViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModels/MainViewModelTests.swift; sourceTree = "<group>"; };
+		A1000043 /* AudioDownloaderIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services/AudioDownloaderIntegrationTests.swift; sourceTree = "<group>"; };
 		A1000029 /* NanaPoppy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NanaPoppy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A100002B /* NanaPoppyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NanaPoppyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* END PBXFileReference section */
@@ -104,6 +106,7 @@
 		A100002F /* NanaPoppyTests */ = {
 			isa = PBXGroup;
 			children = (
+				A1000043 /* AudioDownloaderIntegrationTests.swift */,
 				A100001C /* WeatherServiceTests.swift */,
 				A100001E /* ChildSelectorTests.swift */,
 				A1000020 /* MessageGeneratorTests.swift */,
@@ -255,6 +258,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A1000044 /* AudioDownloaderIntegrationTests.swift in Sources */,
 				A100001D /* WeatherServiceTests.swift in Sources */,
 				A100001F /* ChildSelectorTests.swift in Sources */,
 				A1000021 /* MessageGeneratorTests.swift in Sources */,

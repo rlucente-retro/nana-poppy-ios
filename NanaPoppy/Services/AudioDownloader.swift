@@ -28,7 +28,7 @@ struct ValidationResult: Codable {
 
 class AudioDownloader {
     private func convertGoogleDriveUrl(_ url: String) -> String {
-        if !url.contains("drive.google.com") { return url }
+        if !url.contains("drive.google.com") && !url.contains("docs.google.com") { return url }
         
         var fileId = ""
         if url.contains("/file/d/") {
@@ -46,27 +46,35 @@ class AudioDownloader {
         let convertedUrl = convertGoogleDriveUrl(url)
         guard let downloadUrl = URL(string: convertedUrl) else { return false }
         
-        let (tempFile, response) = try await URLSession.shared.download(from: downloadUrl)
+        var (tempFile, response) = try await URLSession.shared.download(from: downloadUrl)
         
         guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
             return false
         }
         
         // Handle Google Drive virus scan warning
-        if httpResponse.mimeType == "text/html" {
+        if let contentType = httpResponse.value(forHTTPHeaderField: "Content-Type"), contentType.contains("text/html") {
             let html = try String(contentsOf: tempFile)
-            if html.contains("confirm=") {
-                let confirmToken = html.components(separatedBy: "confirm=")[1].components(separatedBy: "&")[0]
-                let confirmUrl = "\(convertedUrl)&confirm=\(confirmToken)"
-                if let finalUrl = URL(string: confirmUrl) {
-                    let (finalFile, finalResponse) = try await URLSession.shared.download(from: finalUrl)
-                    guard let finalHttpResponse = finalResponse as? HTTPURLResponse, finalHttpResponse.statusCode == 200 else {
-                        return false
+            
+            // More robust confirmation token extraction using regex
+            let pattern = "confirm=([0-9a-zA-Z_-]+)"
+            if let regex = try? NSRegularExpression(pattern: pattern),
+               let match = regex.firstMatch(in: html, range: NSRange(html.startIndex..., in: html)) {
+                let tokenRange = match.range(at: 1)
+                if let swiftRange = Range(tokenRange, in: html) {
+                    let confirmToken = String(html[swiftRange])
+                    let confirmUrl = "\(convertedUrl)&confirm=\(confirmToken)"
+                    if let finalUrl = URL(string: confirmUrl) {
+                        let (finalFile, finalResponse) = try await URLSession.shared.download(from: finalUrl)
+                        guard let finalHttpResponse = finalResponse as? HTTPURLResponse, finalHttpResponse.statusCode == 200 else {
+                            return false
+                        }
+                        tempFile = finalFile
                     }
-                    return unzip(fileURL: finalFile)
                 }
+            } else {
+                return false
             }
-            return false
         }
 
         return unzip(fileURL: tempFile)
@@ -89,7 +97,9 @@ class AudioDownloader {
         var results: [ChildStatus] = []
         if let children = try? fileManager.contentsOfDirectory(at: audioDir, includingPropertiesForKeys: nil, options: .skipsHiddenFiles) {
             for childDir in children {
-                if childDir.hasDirectoryPath {
+                // Check if it's a directory
+                var isDir: ObjCBool = false
+                if fileManager.fileExists(atPath: childDir.path, isDirectory: &isDir), isDir.boolValue {
                     let existingPhrases = (try? fileManager.contentsOfDirectory(at: childDir, includingPropertiesForKeys: nil, options: .skipsHiddenFiles))?
                         .filter { $0.pathExtension == "mp3" }
                         .map { $0.deletingPathExtension().lastPathComponent } ?? []
@@ -109,16 +119,66 @@ class AudioDownloader {
         let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
         let audioDir = documentsURL.appendingPathComponent("audio")
         
+        // ZIPFoundation performs best when the file has a .zip extension
+        let tempZipURL = fileManager.temporaryDirectory.appendingPathComponent(UUID().uuidString + ".zip")
+        
         do {
+            if fileManager.fileExists(atPath: tempZipURL.path) {
+                try fileManager.removeItem(at: tempZipURL)
+            }
+            try fileManager.moveItem(at: fileURL, to: tempZipURL)
+            
+            // Clean slate for the audio directory
             if fileManager.fileExists(atPath: audioDir.path) {
                 try fileManager.removeItem(at: audioDir)
             }
             try fileManager.createDirectory(at: audioDir, withIntermediateDirectories: true)
-            try fileManager.unzipItem(at: fileURL, to: audioDir)
+            
+            // Unzip the new content into the audio folder
+            try fileManager.unzipItem(at: tempZipURL, to: audioDir)
+            
+            // Cleanup the temporary zip
+            try? fileManager.removeItem(at: tempZipURL)
+            
+            // Handle optional wrapper directory (e.g., if zipped as a folder)
+            handleWrapperDirectory(at: audioDir)
+            
             return true
         } catch {
-            print("Unzip error: \(error)")
+            print("Unzip error: \(error.localizedDescription)")
+            try? fileManager.removeItem(at: tempZipURL)
             return false
+        }
+    }
+
+    private func handleWrapperDirectory(at audioDir: URL) {
+        let fileManager = FileManager.default
+        do {
+            let contents = try fileManager.contentsOfDirectory(at: audioDir, includingPropertiesForKeys: nil, options: .skipsHiddenFiles)
+            
+            // Filter out __MACOSX and other hidden files if present
+            let realItems = contents.filter { 
+                !$0.lastPathComponent.contains("__MACOSX") && 
+                !$0.lastPathComponent.hasPrefix(".")
+            }
+            
+            if realItems.count == 1, let firstItem = realItems.first {
+                var isDir: ObjCBool = false
+                if fileManager.fileExists(atPath: firstItem.path, isDirectory: &isDir), isDir.boolValue {
+                    // We have a wrapper directory, move its contents up
+                    let subItems = try fileManager.contentsOfDirectory(at: firstItem, includingPropertiesForKeys: nil, options: .skipsHiddenFiles)
+                    for subItem in subItems {
+                        let dest = audioDir.appendingPathComponent(subItem.lastPathComponent)
+                        if fileManager.fileExists(atPath: dest.path) {
+                            try fileManager.removeItem(at: dest)
+                        }
+                        try fileManager.moveItem(at: subItem, to: dest)
+                    }
+                    try fileManager.removeItem(at: firstItem)
+                }
+            }
+        } catch {
+            print("Error handling wrapper directory: \(error)")
         }
     }
 }
