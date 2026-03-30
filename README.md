@@ -10,6 +10,7 @@ The **Nana & Poppy** app is a personalized iOS application designed to provide d
 - **Remote Content Sync:** Downloads and updates grandchild audio clips from a remotely hosted ZIP file.
 - **Modern SwiftUI Interface:** A clean, reactive UI built with SwiftUI and Combine.
 - **AVFoundation Audio:** Uses `AVQueuePlayer` for seamless, high-quality audio playback of message segments.
+- **Dynamic Visuals:** Displays a **full-screen photo** of the grandchild currently speaking as the background while their specific audio segment is playing.
 
 ---
 
@@ -82,7 +83,7 @@ audio.zip
 
 ### Phrase List
 
-Each child's directory must include the following MP3 files. Filenames must match the phrase exactly (lowercase, underscores instead of spaces) and end in `.mp3`.
+Each child's directory must include the following files. Filenames must match the phrase exactly (lowercase, underscores instead of spaces) and end in `.mp3`. Each directory should also include a `photo.jpg` file to be displayed when that child is speaking.
 
 | Phrase / Filename | Description / Notes |
 | :--- | :--- |
