@@ -66,7 +66,10 @@ final class AudioDownloaderIntegrationTests: XCTestCase {
             try fileManager.removeItem(at: tempZip)
         }
         let archive = try Archive(url: tempZip, accessMode: .create)
-        try archive.addEntry(with: "child1/greeting.mp3", type: .file, uncompressedSize: Int64(4), provider: { (_, _) in
+        try archive.addEntry(with: "wrapper/child1/greeting.mp3", type: .file, uncompressedSize: Int64(4), provider: { (_, _) in
+            return "data".data(using: .utf8)!
+        })
+        try archive.addEntry(with: "wrapper/child2/greeting.mp3", type: .file, uncompressedSize: Int64(4), provider: { (_, _) in
             return "data".data(using: .utf8)!
         })
         let zipData = try Data(contentsOf: tempZip)
@@ -93,11 +96,16 @@ final class AudioDownloaderIntegrationTests: XCTestCase {
         XCTAssertTrue(success)
         XCTAssertEqual(callCount, 2)
         XCTAssertTrue(fileManager.fileExists(atPath: audioDir.appendingPathComponent("child1/greeting.mp3").path))
+        XCTAssertTrue(fileManager.fileExists(atPath: audioDir.appendingPathComponent("child2/greeting.mp3").path))
         
         // 6. Verify validation logic works too
         let validation = downloader.validate()
-        XCTAssertEqual(validation.children.count, 1)
-        XCTAssertEqual(validation.children[0].name, "child1")
+        XCTAssertEqual(validation.children.count, 2)
+        if let firstChild = validation.children.first(where: { $0.name == "child1" }) {
+            XCTAssertEqual(firstChild.name, "child1")
+        } else {
+            XCTFail("child1 not found in validation results")
+        }
     }
 }
 

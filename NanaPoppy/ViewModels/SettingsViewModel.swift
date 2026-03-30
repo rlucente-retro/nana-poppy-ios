@@ -50,6 +50,12 @@ class SettingsViewModel: ObservableObject {
             showError = true
             return
         }
+        
+        guard zipUrl.lowercased().starts(with: "https://") else {
+            errorMessage = "ZIP URL must use a secure https:// connection"
+            showError = true
+            return
+        }
 
         isSyncing = true
         Task {

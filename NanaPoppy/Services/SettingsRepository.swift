@@ -20,8 +20,14 @@ class SettingsRepository {
     private let defaults = UserDefaults.standard
 
     var owmApiKey: String? {
-        get { defaults.string(forKey: "owm_api_key") }
-        set { defaults.set(newValue, forKey: "owm_api_key") }
+        get { KeychainHelper.load(key: "owm_api_key") }
+        set {
+            if let value = newValue, !value.isEmpty {
+                KeychainHelper.save(key: "owm_api_key", data: value)
+            } else {
+                KeychainHelper.delete(key: "owm_api_key")
+            }
+        }
     }
 
     var zipUrl: String? {

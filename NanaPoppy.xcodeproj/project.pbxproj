@@ -12,6 +12,7 @@
 		A1000005 /* AudioDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000004 /* AudioDownloader.swift */; };
 		A1000007 /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000006 /* AudioPlayer.swift */; };
 		A1000009 /* SettingsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000008 /* SettingsRepository.swift */; };
+		A1000046 /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000045 /* KeychainHelper.swift */; };
 		A100000B /* WeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100000A /* WeatherService.swift */; };
 		A100000D /* ChildSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100000C /* ChildSelector.swift */; };
 		A100000F /* MessageGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100000E /* MessageGenerator.swift */; };
@@ -45,6 +46,7 @@
 		A1000004 /* AudioDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services/AudioDownloader.swift; sourceTree = "<group>"; };
 		A1000006 /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services/AudioPlayer.swift; sourceTree = "<group>"; };
 		A1000008 /* SettingsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services/SettingsRepository.swift; sourceTree = "<group>"; };
+		A1000045 /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils/KeychainHelper.swift; sourceTree = "<group>"; };
 		A100000A /* WeatherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services/WeatherService.swift; sourceTree = "<group>"; };
 		A100000C /* ChildSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils/ChildSelector.swift; sourceTree = "<group>"; };
 		A100000E /* MessageGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils/MessageGenerator.swift; sourceTree = "<group>"; };
@@ -90,6 +92,7 @@
 				A1000004 /* AudioDownloader.swift */,
 				A1000006 /* AudioPlayer.swift */,
 				A1000008 /* SettingsRepository.swift */,
+				A1000045 /* KeychainHelper.swift */,
 				A100000A /* WeatherService.swift */,
 				A100000C /* ChildSelector.swift */,
 				A100000E /* MessageGenerator.swift */,
@@ -243,6 +246,7 @@
 				A1000005 /* AudioDownloader.swift in Sources */,
 				A1000007 /* AudioPlayer.swift in Sources */,
 				A1000009 /* SettingsRepository.swift in Sources */,
+				A1000046 /* KeychainHelper.swift in Sources */,
 				A100000B /* WeatherService.swift in Sources */,
 				A100000D /* ChildSelector.swift in Sources */,
 				A100000F /* MessageGenerator.swift in Sources */,
