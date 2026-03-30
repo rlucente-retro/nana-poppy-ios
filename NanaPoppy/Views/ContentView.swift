@@ -62,6 +62,7 @@ struct ContentView: View {
                 }
             }
             .navigationTitle("Nana & Poppy")
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
                     Button(action: {
