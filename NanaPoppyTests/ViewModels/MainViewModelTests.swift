@@ -33,6 +33,10 @@ final class MainViewModelTests: XCTestCase {
         let fileManager = FileManager.default
         let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
         let audioDir = documentsURL.appendingPathComponent("audio")
+        
+        // Clean up previous test state
+        try? fileManager.removeItem(at: audioDir)
+        
         let child1Dir = audioDir.appendingPathComponent("child1")
         try? fileManager.createDirectory(at: child1Dir, withIntermediateDirectories: true)
         
@@ -45,19 +49,32 @@ final class MainViewModelTests: XCTestCase {
         mockSettings.loc1 = "Waynesboro,PA,US"
         mockSettings.loc2 = "Ocean City,MD,US"
         
-        let expectation = XCTestExpectation(description: "Playback finished")
+        let startExpectation = XCTestExpectation(description: "Playback started")
         mockPlayer.onPlayPlaylist = {
-            expectation.fulfill()
+            startExpectation.fulfill()
+        }
+        
+        let finishExpectation = XCTestExpectation(description: "Playback finished")
+        mockPlayer.onCompleteCalled = {
+            finishExpectation.fulfill()
         }
 
         await MainActor.run {
             viewModel.play()
         }
         
-        await fulfillment(of: [expectation], timeout: 5.0)
+        await fulfillment(of: [startExpectation], timeout: 5.0)
+        
+        await MainActor.run {
+            XCTAssertNotNil(viewModel.currentChildId)
+            XCTAssertEqual(viewModel.currentChildId, "child1")
+        }
+        
+        await fulfillment(of: [finishExpectation], timeout: 5.0)
         
         XCTAssertTrue(mockWeatherService.getCurrentWeatherCalled)
         XCTAssertTrue(mockPlayer.playPlaylistCalled)
+        XCTAssertNil(viewModel.currentChildId)
     }
 }
 
@@ -98,10 +115,19 @@ class MockSettingsRepository: SettingsRepository {
 class MockAudioPlayer: AudioPlayer {
     var playPlaylistCalled = false
     var onPlayPlaylist: (() -> Void)?
+    var onCompleteCalled: (() -> Void)?
     
-    override func playPlaylist(segments: [(childId: String, words: [String])], onComplete: @escaping () -> Void) {
+    override func playPlaylist(segments: [(childId: String, words: [String])], 
+                               onSegmentChange: @escaping (String) -> Void,
+                               onComplete: @escaping () -> Void) {
         playPlaylistCalled = true
+        onSegmentChange(segments.first?.childId ?? "unknown")
         onPlayPlaylist?()
-        onComplete()
+        
+        // Delay completion to simulate asynchronous playback
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            onComplete()
+            self.onCompleteCalled?()
+        }
     }
 }

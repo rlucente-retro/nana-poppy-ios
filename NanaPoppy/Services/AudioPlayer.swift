@@ -21,39 +21,70 @@ class AudioPlayer: NSObject {
     private var player: AVQueuePlayer?
     private var playerItems: [AVPlayerItem] = []
     private var onComplete: (() -> Unit)?
+    private var onSegmentChange: ((String) -> Unit)?
+    private var segments: [(childId: String, words: [String])] = []
+    private var currentSegmentIndex = 0
 
-    func playPlaylist(segments: [(childId: String, words: [String])], onComplete: @escaping () -> Unit) {
+    func playPlaylist(segments: [(childId: String, words: [String])], 
+                      onSegmentChange: @escaping (String) -> Unit,
+                      onComplete: @escaping () -> Unit) {
+        self.segments = segments
+        self.onSegmentChange = onSegmentChange
         self.onComplete = onComplete
+        self.currentSegmentIndex = 0
+        
+        playNextSegment()
+    }
+    
+    private func playNextSegment() {
+        guard currentSegmentIndex < segments.count else {
+            onComplete?()
+            cleanup()
+            return
+        }
+        
+        let segment = segments[currentSegmentIndex]
+        onSegmentChange?(segment.childId)
         
         let fileManager = FileManager.default
         let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
         let audioDir = documentsURL.appendingPathComponent("audio")
         
         var items: [AVPlayerItem] = []
-        for segment in segments {
-            for word in segment.words {
-                let fileURL = audioDir.appendingPathComponent("\(segment.childId)/\(word).mp3")
-                if fileManager.fileExists(atPath: fileURL.path) {
-                    items.append(AVPlayerItem(url: fileURL))
-                }
+        for word in segment.words {
+            let fileURL = audioDir.appendingPathComponent("\(segment.childId)/\(word).mp3")
+            if fileManager.fileExists(atPath: fileURL.path) {
+                items.append(AVPlayerItem(url: fileURL))
             }
         }
         
         guard !items.isEmpty else {
-            onComplete()
+            currentSegmentIndex += 1
+            playNextSegment()
             return
         }
         
         player = AVQueuePlayer(items: items)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(playerDidFinishPlaying), name: .AVPlayerItemDidPlayToEndTime, object: items.last)
+        // Observe only the last item of the CURRENT segment
+        NotificationCenter.default.addObserver(self, selector: #selector(segmentDidFinishPlaying), name: .AVPlayerItemDidPlayToEndTime, object: items.last)
         
         player?.play()
     }
     
-    @objc private func playerDidFinishPlaying() {
-        onComplete?()
+    @objc private func segmentDidFinishPlaying(notification: Notification) {
+        // Remove observer for the item that just finished
+        NotificationCenter.default.removeObserver(self, name: .AVPlayerItemDidPlayToEndTime, object: notification.object)
+        
+        currentSegmentIndex += 1
+        playNextSegment()
+    }
+    
+    private func cleanup() {
         onComplete = nil
+        onSegmentChange = nil
+        player = nil
+        segments = []
     }
 }
 

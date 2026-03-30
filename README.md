@@ -124,6 +124,7 @@ Each child's directory must include the following MP3 files. Filenames must matc
     - Generate a sequence of messages via `MessageGenerator`.
     - Randomly select a child's voice for each segment via `ChildSelector`.
     - Queue and play the audio sequence using `AudioPlayer`.
+    - **Dynamic Photo Display:** As each segment plays, the UI automatically updates to show the photo of the grandchild currently speaking (if a `photo.jpg` is present in their audio directory).
 
 ---
 

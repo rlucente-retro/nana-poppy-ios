@@ -20,6 +20,7 @@ import Combine
 class MainViewModel: ObservableObject {
     @Published var isPlaying = false
     @Published var status: String?
+    @Published var currentChildId: String?
     
     private let weatherService: WeatherService
     private let settings: SettingsRepository
@@ -44,8 +45,11 @@ class MainViewModel: ObservableObject {
         let audioDir = documentsURL.appendingPathComponent("audio")
         
         var availableChildren: [String] = []
-        if let contents = try? fileManager.contentsOfDirectory(at: audioDir, includingPropertiesForKeys: nil, options: .skipsHiddenFiles) {
-            availableChildren = contents.filter { $0.hasDirectoryPath }.map { $0.lastPathComponent }
+        if let contents = try? fileManager.contentsOfDirectory(at: audioDir, includingPropertiesForKeys: [.isDirectoryKey], options: .skipsHiddenFiles) {
+            availableChildren = contents.filter { url in
+                let values = try? url.resourceValues(forKeys: [.isDirectoryKey])
+                return values?.isDirectory ?? false
+            }.map { $0.lastPathComponent }
         }
         
         guard !availableChildren.isEmpty else {
@@ -55,27 +59,51 @@ class MainViewModel: ObservableObject {
         
         isPlaying = true
         status = nil
+        currentChildId = nil
         
         Task {
-            let now = Date()
-            let temp1 = try? await fetchWeather(location: settings.location1Query)
-            let temp2 = try? await fetchWeather(location: settings.location2Query)
-            
-            let selectedChildren = ChildSelector.select(available: availableChildren, count: 4)
-            
-            let messages: [(childId: String, words: [String])] = [
-                (selectedChildren[0], MessageGenerator.generateDateMsg(now: now)),
-                (selectedChildren[1], MessageGenerator.generateTimeMsg(now: now)),
-                (selectedChildren[2], MessageGenerator.generateTempMsg(location: "location1", temp: temp1)),
-                (selectedChildren[3], MessageGenerator.generateTempMsg(location: "location2", temp: temp2))
-            ]
-            
-            await MainActor.run {
-                player.playPlaylist(segments: messages) {
+            do {
+                let now = Date()
+                let temp1 = try? await fetchWeather(location: settings.location1Query)
+                let temp2 = try? await fetchWeather(location: settings.location2Query)
+                
+                let selectedChildren = ChildSelector.select(available: availableChildren, count: 4)
+                
+                let messages: [(childId: String, words: [String])] = [
+                    (selectedChildren[0], MessageGenerator.generateDateMsg(now: now)),
+                    (selectedChildren[1], MessageGenerator.generateTimeMsg(now: now)),
+                    (selectedChildren[2], MessageGenerator.generateTempMsg(location: "location1", temp: temp1)),
+                    (selectedChildren[3], MessageGenerator.generateTempMsg(location: "location2", temp: temp2))
+                ]
+                
+                await MainActor.run {
+                    player.playPlaylist(
+                        segments: messages,
+                        onSegmentChange: { childId in
+                            self.currentChildId = childId
+                        },
+                        onComplete: {
+                            self.isPlaying = false
+                            self.currentChildId = nil
+                        }
+                    )
+                }
+            } catch {
+                await MainActor.run {
+                    self.status = "Error: \(error.localizedDescription)"
                     self.isPlaying = false
+                    self.currentChildId = nil
                 }
             }
         }
+    }
+    
+    func photoURL(for childId: String?) -> URL? {
+        guard let childId = childId else { return nil }
+        let fileManager = FileManager.default
+        let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        let photoURL = documentsURL.appendingPathComponent("audio/\(childId)/photo.jpg")
+        return fileManager.fileExists(atPath: photoURL.path) ? photoURL : nil
     }
     
     private func fetchWeather(location: String) async throws -> Int? {

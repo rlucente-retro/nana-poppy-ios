@@ -22,32 +22,44 @@ struct ContentView: View {
 
     var body: some View {
         NavigationView {
-            VStack(spacing: 40) {
-                Spacer()
+            ZStack {
+                if let childId = viewModel.currentChildId,
+                   let photoURL = viewModel.photoURL(for: childId),
+                   let uiImage = UIImage(contentsOfFile: photoURL.path) {
+                    Image(uiImage: uiImage)
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .edgesIgnoringSafeArea(.all)
+                }
                 
-                Button(action: {
-                    viewModel.play()
-                }) {
-                    ZStack {
-                        Circle()
-                            .fill(viewModel.isPlaying ? Color.gray : Color.blue)
-                            .frame(width: 200, height: 200)
-                        
-                        Text(viewModel.isPlaying ? "Playing..." : "Play")
-                            .font(.largeTitle)
-                            .foregroundColor(.white)
+                VStack(spacing: 20) {
+                    if let status = viewModel.status {
+                        Text(status)
+                            .foregroundColor(.red)
+                            .multilineTextAlignment(.center)
+                            .padding()
+                            .background(Color.white.opacity(0.7))
+                            .cornerRadius(10)
                     }
+                    
+                    Spacer()
+                    
+                    Button(action: {
+                        viewModel.play()
+                    }) {
+                        ZStack {
+                            Circle()
+                                .fill(viewModel.isPlaying ? Color.gray.opacity(0.8) : Color.blue.opacity(0.8))
+                                .frame(width: 150, height: 150)
+                            
+                            Text(viewModel.isPlaying ? "Playing..." : "Play")
+                                .font(.title)
+                                .foregroundColor(.white)
+                        }
+                    }
+                    .disabled(viewModel.isPlaying)
+                    .padding(.bottom, 30)
                 }
-                .disabled(viewModel.isPlaying)
-                
-                if let status = viewModel.status {
-                    Text(status)
-                        .foregroundColor(.red)
-                        .multilineTextAlignment(.center)
-                        .padding()
-                }
-                
-                Spacer()
             }
             .navigationTitle("Nana & Poppy")
             .toolbar {
