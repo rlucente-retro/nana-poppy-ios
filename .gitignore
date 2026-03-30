@@ -1,0 +1,33 @@
+# Xcode
+#
+# gitignore contributors: view at https://github.com/github/gitignore/blob/master/Global/Xcode.gitignore
+
+## Build results
+build/
+DerivedData/
+
+## Project settings
+xcuserdata/
+
+## CoreData
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+## Playgrounds
+timeline.xctimeline
+playground.xcworkspace
+
+## Swift Package Manager
+#
+# Add this line if you want to avoid checking in source code from Swift Packages.
+# .build/
+
+## Package.resolved
+# Package.resolved should be checked in for applications, but we can exclude it
+# if the user specifically asked for a clean directory without SwiftPM artifacts.
+Package.resolved
+
+## macOS
+.DS_Store
