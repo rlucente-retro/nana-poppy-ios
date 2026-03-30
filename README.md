@@ -50,8 +50,8 @@ Once the app is running, you must configure it via the **Settings** menu:
 2.  **OpenWeatherMap API Key:** Enter your OWM API key.
 3.  **Audio ZIP URL:** Enter the direct download URL for your audio clips (e.g., `https://example.com/audio.zip`).
 4.  **Location Queries:**
-    *   **Location 1:** Enter the city name/query for the primary location (default: "Waynesboro,PA").
-    *   **Location 2:** Enter the city name/query for the secondary location (default: "Ocean City,MD").
+    *   **Location 1:** Enter the city name/query for the primary location (default: "Waynesboro,PA,US").
+    *   **Location 2:** Enter the city name/query for the secondary location (default: "Ocean City,MD,US").
 5.  **Save & Sync:**
     *   Tap **Save Settings** to store your configuration in `UserDefaults`.
     *   Tap **Sync Audio** to download and unzip the audio clips using `ZIPFoundation`. The app will show the sync results, including any missing phrases for each child.

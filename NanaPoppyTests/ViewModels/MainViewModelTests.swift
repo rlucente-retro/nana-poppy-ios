@@ -42,8 +42,8 @@ final class MainViewModelTests: XCTestCase {
     func testPlaySuccess() async {
         mockSettings.configured = true
         mockSettings.apiKey = "fake_key"
-        mockSettings.loc1 = "Waynesboro,PA"
-        mockSettings.loc2 = "Ocean City,MD"
+        mockSettings.loc1 = "Waynesboro,PA,US"
+        mockSettings.loc2 = "Ocean City,MD,US"
         
         let expectation = XCTestExpectation(description: "Playback finished")
         mockPlayer.onPlayPlaylist = {
@@ -72,8 +72,8 @@ class MockWeatherService: WeatherService {
 class MockSettingsRepository: SettingsRepository {
     var configured = false
     var apiKey: String?
-    var loc1 = "Waynesboro,PA"
-    var loc2 = "Ocean City,MD"
+    var loc1 = "Waynesboro,PA,US"
+    var loc2 = "Ocean City,MD,US"
     
     override func isConfigured() -> Bool {
         return configured

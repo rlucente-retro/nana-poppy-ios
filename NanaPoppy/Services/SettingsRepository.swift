@@ -30,12 +30,12 @@ class SettingsRepository {
     }
 
     var location1Query: String {
-        get { defaults.string(forKey: "location1_query") ?? "Waynesboro,PA" }
+        get { defaults.string(forKey: "location1_query") ?? "Waynesboro,PA,US" }
         set { defaults.set(newValue, forKey: "location1_query") }
     }
 
     var location2Query: String {
-        get { defaults.string(forKey: "location2_query") ?? "Ocean City,MD" }
+        get { defaults.string(forKey: "location2_query") ?? "Ocean City,MD,US" }
         set { defaults.set(newValue, forKey: "location2_query") }
     }
 

@@ -30,8 +30,8 @@ struct SettingsView: View {
                 }
                 
                 Section(header: Text("Locations")) {
-                    TextField("Location 1 (e.g. Waynesboro,PA)", text: $viewModel.location1Query)
-                    TextField("Location 2 (e.g. Ocean City,MD)", text: $viewModel.location2Query)
+                    TextField("Location 1 (e.g. Waynesboro,PA,US)", text: $viewModel.location1Query)
+                    TextField("Location 2 (e.g. Ocean City,MD,US)", text: $viewModel.location2Query)
                 }
                 
                 Section {
