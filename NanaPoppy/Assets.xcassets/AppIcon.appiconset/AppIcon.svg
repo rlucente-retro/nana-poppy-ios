@@ -1,0 +1,52 @@
+<svg width="1024" height="1024" viewBox="0 0 108 108" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect x="0" y="0" width="108" height="108" fill="#F5F5DC" />
+  <g stroke="#D2B48C" stroke-width="0.5">
+    <path d="M0,10h108 M0,20h108 M0,30h108 M0,40h108 M0,50h108 M0,60h108 M0,70h108 M0,80h108 M0,90h108 M0,100h108" />
+    <path d="M10,0v108 M20,0v108 M30,0v108 M40,0v108 M50,0v108 M60,0v108 M70,0v108 M80,0v108 M90,0v108 M100,0v108" />
+  </g>
+
+  <!-- Foreground -->
+  <!-- Small Heart (Centered) -->
+  <path fill="#FF6B6B" stroke="#E57373" stroke-width="1" stroke-linecap="round"
+        d="M54,38 L47,31 C42,26 45,21 50,24 L54,27 L58,24 C63,21 66,26 61,31 Z" />
+
+  <!-- NANA (Left) -->
+  <!-- Hair Base -->
+  <path fill="#E0E0E0" d="M28,65 Q28,47 43,47 Q58,47 58,65 Z" />
+  <!-- Hair Texture/Waves -->
+  <path stroke="#BDBDBD" stroke-width="1.5" stroke-linecap="round" fill="none"
+        d="M35,49 Q43,52 51,49 M32,57 Q43,60 54,57" />
+  <!-- Bun -->
+  <path fill="#E0E0E0" stroke="#BDBDBD" stroke-width="1"
+        d="M38,47 Q43,39 48,47" />
+  <!-- Face -->
+  <path fill="#FFE0B2" d="M32,65 Q32,79 43,79 Q54,79 54,65 Z" />
+  <!-- Eyes/Smile -->
+  <path stroke="#4A4A4A" stroke-width="1" stroke-linecap="round" fill="none"
+        d="M38,69 H39 M47,69 H48 M40,75 Q43,77 46,75" />
+  <!-- Glasses -->
+  <path stroke="#000000" stroke-width="1" fill="none"
+        d="M35,67 Q39,67 41,67 M45,67 Q49,67 51,67 M41,67 L45,67" />
+  <!-- Cardigan (Pink) -->
+  <path fill="#F06292" d="M32,79 Q43,89 54,79 L54,92 H32 Z" />
+  <path stroke="#F48FB1" stroke-width="1" fill="none" d="M43,79 V92" />
+
+  <!-- POPPY (Right) -->
+  <!-- Flat Cap (Brown) -->
+  <path fill="#5D4037" d="M54,62 Q54,49 69,49 Q84,49 84,62 Z" />
+  <path stroke="#3E2723" stroke-width="2" fill="none" d="M54,62 H84" />
+  <!-- Face -->
+  <path fill="#FFE0B2" d="M58,65 Q58,79 69,79 Q80,79 80,65 Z" />
+  <!-- Eyes/Smile -->
+  <path stroke="#4A4A4A" stroke-width="1" stroke-linecap="round" fill="none"
+        d="M64,69 H65 M73,69 H74 M66,75 Q69,77 72,75" />
+  <!-- Glasses -->
+  <path stroke="#000000" stroke-width="1" fill="none"
+        d="M61,67 H67 M71,67 H77 M67,67 H71" />
+  <!-- Shirt (Blue Checkered) -->
+  <path fill="#1E88E5" d="M58,79 Q69,89 80,79 L80,92 H58 Z" />
+  <path stroke="#64B5F6" stroke-width="1" fill="none" d="M58,85 H80 M64,79 V92 M74,79 V92" />
+  <!-- Bowtie -->
+  <path fill="#2E7D32" d="M65,81 L73,81 L69,77 Z" />
+</svg>

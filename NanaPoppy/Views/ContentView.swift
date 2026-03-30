@@ -23,13 +23,23 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                if let childId = viewModel.currentChildId,
+                if viewModel.isPlaying,
+                   let childId = viewModel.currentChildId,
                    let photoURL = viewModel.photoURL(for: childId),
                    let uiImage = UIImage(contentsOfFile: photoURL.path) {
                     Image(uiImage: uiImage)
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                         .edgesIgnoringSafeArea(.all)
+                } else {
+                    ZStack {
+                        Color(red: 245/255, green: 245/255, blue: 220/255)
+                            .edgesIgnoringSafeArea(.all)
+                        Image("Logo")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                    }
+                    .edgesIgnoringSafeArea(.all)
                 }
                 
                 VStack(spacing: 20) {

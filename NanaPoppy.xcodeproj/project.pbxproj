@@ -6,31 +6,33 @@
 	objectVersion = 55;
 	objects = {
 
-/* BEGIN PBXBuildFile section */
+/* Begin PBXBuildFile section */
 		A1000001 /* NanaPoppyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000000 /* NanaPoppyApp.swift */; };
-		A1000003 /* WeatherResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000002 /* WeatherResponse.swift */; };
-		A1000005 /* AudioDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000004 /* AudioDownloader.swift */; };
-		A1000007 /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000006 /* AudioPlayer.swift */; };
-		A1000009 /* SettingsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000008 /* SettingsRepository.swift */; };
-		A1000046 /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000045 /* KeychainHelper.swift */; };
-		A100000B /* WeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100000A /* WeatherService.swift */; };
-		A100000D /* ChildSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100000C /* ChildSelector.swift */; };
-		A100000F /* MessageGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100000E /* MessageGenerator.swift */; };
-		A1000011 /* NumberToWords.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000010 /* NumberToWords.swift */; };
-		A1000013 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000012 /* MainViewModel.swift */; };
-		A1000015 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000014 /* SettingsViewModel.swift */; };
-		A1000017 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000016 /* ContentView.swift */; };
-		A1000019 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000018 /* SettingsView.swift */; };
-		A100001B /* phrase-list.txt in Resources */ = {isa = PBXBuildFile; fileRef = A100001A /* phrase-list.txt */; };
-		A100001D /* WeatherServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100001C /* WeatherServiceTests.swift */; };
-		A100001F /* ChildSelectorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100001E /* ChildSelectorTests.swift */; };
-		A1000021 /* MessageGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000020 /* MessageGeneratorTests.swift */; };
-		A1000023 /* NumberToWordsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000022 /* NumberToWordsTests.swift */; };
-		A1000025 /* MainViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000024 /* MainViewModelTests.swift */; };
-		A1000044 /* AudioDownloaderIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000043 /* AudioDownloaderIntegrationTests.swift */; };
-/* END PBXBuildFile section */
+		A1000003 /* Models/WeatherResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000002 /* Models/WeatherResponse.swift */; };
+		A1000005 /* Services/AudioDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000004 /* Services/AudioDownloader.swift */; };
+		A1000007 /* Services/AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000006 /* Services/AudioPlayer.swift */; };
+		A1000009 /* Services/SettingsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000008 /* Services/SettingsRepository.swift */; };
+		A100000B /* Services/WeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100000A /* Services/WeatherService.swift */; };
+		A100000D /* Utils/ChildSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100000C /* Utils/ChildSelector.swift */; };
+		A100000F /* Utils/MessageGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100000E /* Utils/MessageGenerator.swift */; };
+		A1000011 /* Utils/NumberToWords.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000010 /* Utils/NumberToWords.swift */; };
+		A1000013 /* ViewModels/MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000012 /* ViewModels/MainViewModel.swift */; };
+		A1000015 /* ViewModels/SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000014 /* ViewModels/SettingsViewModel.swift */; };
+		A1000017 /* Views/ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000016 /* Views/ContentView.swift */; };
+		A1000019 /* Views/SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000018 /* Views/SettingsView.swift */; };
+		A100001B /* Resources/phrase-list.txt in Resources */ = {isa = PBXBuildFile; fileRef = A100001A /* Resources/phrase-list.txt */; };
+		A100001D /* Services/WeatherServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100001C /* Services/WeatherServiceTests.swift */; };
+		A100001F /* Utils/ChildSelectorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100001E /* Utils/ChildSelectorTests.swift */; };
+		A1000021 /* Utils/MessageGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000020 /* Utils/MessageGeneratorTests.swift */; };
+		A1000023 /* Utils/NumberToWordsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000022 /* Utils/NumberToWordsTests.swift */; };
+		A1000025 /* ViewModels/MainViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000024 /* ViewModels/MainViewModelTests.swift */; };
+		A1000044 /* Services/AudioDownloaderIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000043 /* Services/AudioDownloaderIntegrationTests.swift */; };
+		A1000046 /* Utils/KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000045 /* Utils/KeychainHelper.swift */; };
+		A1000048 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1000047 /* Assets.xcassets */; };
+		DA0771042F7B141C005BBFCD /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = A1000042 /* ZIPFoundation */; };
+/* End PBXBuildFile section */
 
-/* BEGIN PBXContainerItemProxy section */
+/* Begin PBXContainerItemProxy section */
 		A1000027 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = A1000026 /* Project object */;
@@ -38,39 +40,41 @@
 			remoteGlobalIDString = A1000028;
 			remoteInfo = NanaPoppy;
 		};
-/* END PBXContainerItemProxy section */
+/* End PBXContainerItemProxy section */
 
-/* BEGIN PBXFileReference section */
+/* Begin PBXFileReference section */
 		A1000000 /* NanaPoppyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NanaPoppyApp.swift; sourceTree = "<group>"; };
-		A1000002 /* WeatherResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models/WeatherResponse.swift; sourceTree = "<group>"; };
-		A1000004 /* AudioDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services/AudioDownloader.swift; sourceTree = "<group>"; };
-		A1000006 /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services/AudioPlayer.swift; sourceTree = "<group>"; };
-		A1000008 /* SettingsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services/SettingsRepository.swift; sourceTree = "<group>"; };
-		A1000045 /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils/KeychainHelper.swift; sourceTree = "<group>"; };
-		A100000A /* WeatherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services/WeatherService.swift; sourceTree = "<group>"; };
-		A100000C /* ChildSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils/ChildSelector.swift; sourceTree = "<group>"; };
-		A100000E /* MessageGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils/MessageGenerator.swift; sourceTree = "<group>"; };
-		A1000010 /* NumberToWords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils/NumberToWords.swift; sourceTree = "<group>"; };
-		A1000012 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModels/MainViewModel.swift; sourceTree = "<group>"; };
-		A1000014 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModels/SettingsViewModel.swift; sourceTree = "<group>"; };
-		A1000016 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/ContentView.swift; sourceTree = "<group>"; };
-		A1000018 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/SettingsView.swift; sourceTree = "<group>"; };
-		A100001A /* phrase-list.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Resources/phrase-list.txt; sourceTree = "<group>"; };
-		A100001C /* WeatherServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services/WeatherServiceTests.swift; sourceTree = "<group>"; };
-		A100001E /* ChildSelectorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils/ChildSelectorTests.swift; sourceTree = "<group>"; };
-		A1000020 /* MessageGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils/MessageGeneratorTests.swift; sourceTree = "<group>"; };
-		A1000022 /* NumberToWordsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils/NumberToWordsTests.swift; sourceTree = "<group>"; };
-		A1000024 /* MainViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModels/MainViewModelTests.swift; sourceTree = "<group>"; };
-		A1000043 /* AudioDownloaderIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services/AudioDownloaderIntegrationTests.swift; sourceTree = "<group>"; };
+		A1000002 /* Models/WeatherResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models/WeatherResponse.swift; sourceTree = "<group>"; };
+		A1000004 /* Services/AudioDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services/AudioDownloader.swift; sourceTree = "<group>"; };
+		A1000006 /* Services/AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services/AudioPlayer.swift; sourceTree = "<group>"; };
+		A1000008 /* Services/SettingsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services/SettingsRepository.swift; sourceTree = "<group>"; };
+		A100000A /* Services/WeatherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services/WeatherService.swift; sourceTree = "<group>"; };
+		A100000C /* Utils/ChildSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils/ChildSelector.swift; sourceTree = "<group>"; };
+		A100000E /* Utils/MessageGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils/MessageGenerator.swift; sourceTree = "<group>"; };
+		A1000010 /* Utils/NumberToWords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils/NumberToWords.swift; sourceTree = "<group>"; };
+		A1000012 /* ViewModels/MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModels/MainViewModel.swift; sourceTree = "<group>"; };
+		A1000014 /* ViewModels/SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModels/SettingsViewModel.swift; sourceTree = "<group>"; };
+		A1000016 /* Views/ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/ContentView.swift; sourceTree = "<group>"; };
+		A1000018 /* Views/SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/SettingsView.swift; sourceTree = "<group>"; };
+		A100001A /* Resources/phrase-list.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Resources/phrase-list.txt"; sourceTree = "<group>"; };
+		A100001C /* Services/WeatherServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services/WeatherServiceTests.swift; sourceTree = "<group>"; };
+		A100001E /* Utils/ChildSelectorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils/ChildSelectorTests.swift; sourceTree = "<group>"; };
+		A1000020 /* Utils/MessageGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils/MessageGeneratorTests.swift; sourceTree = "<group>"; };
+		A1000022 /* Utils/NumberToWordsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils/NumberToWordsTests.swift; sourceTree = "<group>"; };
+		A1000024 /* ViewModels/MainViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModels/MainViewModelTests.swift; sourceTree = "<group>"; };
 		A1000029 /* NanaPoppy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NanaPoppy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A100002B /* NanaPoppyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NanaPoppyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-/* END PBXFileReference section */
+		A1000043 /* Services/AudioDownloaderIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services/AudioDownloaderIntegrationTests.swift; sourceTree = "<group>"; };
+		A1000045 /* Utils/KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils/KeychainHelper.swift; sourceTree = "<group>"; };
+		A1000047 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+/* End PBXFileReference section */
 
-/* BEGIN PBXFrameworksBuildPhase section */
+/* Begin PBXFrameworksBuildPhase section */
 		A100002C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA0771042F7B141C005BBFCD /* ZIPFoundation in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,27 +85,28 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-/* END PBXFrameworksBuildPhase section */
+/* End PBXFrameworksBuildPhase section */
 
-/* BEGIN PBXGroup section */
+/* Begin PBXGroup section */
 		A100002E /* NanaPoppy */ = {
 			isa = PBXGroup;
 			children = (
 				A1000000 /* NanaPoppyApp.swift */,
-				A1000002 /* WeatherResponse.swift */,
-				A1000004 /* AudioDownloader.swift */,
-				A1000006 /* AudioPlayer.swift */,
-				A1000008 /* SettingsRepository.swift */,
-				A1000045 /* KeychainHelper.swift */,
-				A100000A /* WeatherService.swift */,
-				A100000C /* ChildSelector.swift */,
-				A100000E /* MessageGenerator.swift */,
-				A1000010 /* NumberToWords.swift */,
-				A1000012 /* MainViewModel.swift */,
-				A1000014 /* SettingsViewModel.swift */,
-				A1000016 /* ContentView.swift */,
-				A1000018 /* SettingsView.swift */,
-				A100001A /* phrase-list.txt */,
+				A1000002 /* Models/WeatherResponse.swift */,
+				A1000004 /* Services/AudioDownloader.swift */,
+				A1000006 /* Services/AudioPlayer.swift */,
+				A1000008 /* Services/SettingsRepository.swift */,
+				A1000045 /* Utils/KeychainHelper.swift */,
+				A100000A /* Services/WeatherService.swift */,
+				A100000C /* Utils/ChildSelector.swift */,
+				A100000E /* Utils/MessageGenerator.swift */,
+				A1000010 /* Utils/NumberToWords.swift */,
+				A1000012 /* ViewModels/MainViewModel.swift */,
+				A1000014 /* ViewModels/SettingsViewModel.swift */,
+				A1000016 /* Views/ContentView.swift */,
+				A1000018 /* Views/SettingsView.swift */,
+				A100001A /* Resources/phrase-list.txt */,
+				A1000047 /* Assets.xcassets */,
 			);
 			path = NanaPoppy;
 			sourceTree = "<group>";
@@ -109,12 +114,12 @@
 		A100002F /* NanaPoppyTests */ = {
 			isa = PBXGroup;
 			children = (
-				A1000043 /* AudioDownloaderIntegrationTests.swift */,
-				A100001C /* WeatherServiceTests.swift */,
-				A100001E /* ChildSelectorTests.swift */,
-				A1000020 /* MessageGeneratorTests.swift */,
-				A1000022 /* NumberToWordsTests.swift */,
-				A1000024 /* MainViewModelTests.swift */,
+				A1000043 /* Services/AudioDownloaderIntegrationTests.swift */,
+				A100001C /* Services/WeatherServiceTests.swift */,
+				A100001E /* Utils/ChildSelectorTests.swift */,
+				A1000020 /* Utils/MessageGeneratorTests.swift */,
+				A1000022 /* Utils/NumberToWordsTests.swift */,
+				A1000024 /* ViewModels/MainViewModelTests.swift */,
 			);
 			path = NanaPoppyTests;
 			sourceTree = "<group>";
@@ -128,7 +133,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		A1000031 /* Main */ = {
+		A1000031 = {
 			isa = PBXGroup;
 			children = (
 				A100002E /* NanaPoppy */,
@@ -137,9 +142,9 @@
 			);
 			sourceTree = "<group>";
 		};
-/* END PBXGroup section */
+/* End PBXGroup section */
 
-/* BEGIN PBXNativeTarget section */
+/* Begin PBXNativeTarget section */
 		A1000028 /* NanaPoppy */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = A1000032 /* Build configuration list for PBXNativeTarget "NanaPoppy" */;
@@ -178,9 +183,9 @@
 			productReference = A100002B /* NanaPoppyTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-/* END PBXNativeTarget section */
+/* End PBXNativeTarget section */
 
-/* BEGIN PBXProject section */
+/* Begin PBXProject section */
 		A1000026 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
@@ -204,7 +209,7 @@
 				en,
 				Base,
 			);
-			mainGroup = A1000031 /* Main */;
+			mainGroup = A1000031;
 			packageReferences = (
 				A1000041 /* XCRemoteSwiftPackageReference "ZIPFoundation" */,
 			);
@@ -216,14 +221,15 @@
 				A1000035 /* NanaPoppyTests */,
 			);
 		};
-/* END PBXProject section */
+/* End PBXProject section */
 
-/* BEGIN PBXResourcesBuildPhase section */
+/* Begin PBXResourcesBuildPhase section */
 		A1000034 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A100001B /* phrase-list.txt in Resources */,
+				A100001B /* Resources/phrase-list.txt in Resources */,
+				A1000048 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -234,27 +240,27 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-/* END PBXResourcesBuildPhase section */
+/* End PBXResourcesBuildPhase section */
 
-/* BEGIN PBXSourcesBuildPhase section */
+/* Begin PBXSourcesBuildPhase section */
 		A1000033 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				A1000001 /* NanaPoppyApp.swift in Sources */,
-				A1000003 /* WeatherResponse.swift in Sources */,
-				A1000005 /* AudioDownloader.swift in Sources */,
-				A1000007 /* AudioPlayer.swift in Sources */,
-				A1000009 /* SettingsRepository.swift in Sources */,
-				A1000046 /* KeychainHelper.swift in Sources */,
-				A100000B /* WeatherService.swift in Sources */,
-				A100000D /* ChildSelector.swift in Sources */,
-				A100000F /* MessageGenerator.swift in Sources */,
-				A1000011 /* NumberToWords.swift in Sources */,
-				A1000013 /* MainViewModel.swift in Sources */,
-				A1000015 /* SettingsViewModel.swift in Sources */,
-				A1000017 /* ContentView.swift in Sources */,
-				A1000019 /* SettingsView.swift in Sources */,
+				A1000003 /* Models/WeatherResponse.swift in Sources */,
+				A1000005 /* Services/AudioDownloader.swift in Sources */,
+				A1000007 /* Services/AudioPlayer.swift in Sources */,
+				A1000009 /* Services/SettingsRepository.swift in Sources */,
+				A1000046 /* Utils/KeychainHelper.swift in Sources */,
+				A100000B /* Services/WeatherService.swift in Sources */,
+				A100000D /* Utils/ChildSelector.swift in Sources */,
+				A100000F /* Utils/MessageGenerator.swift in Sources */,
+				A1000011 /* Utils/NumberToWords.swift in Sources */,
+				A1000013 /* ViewModels/MainViewModel.swift in Sources */,
+				A1000015 /* ViewModels/SettingsViewModel.swift in Sources */,
+				A1000017 /* Views/ContentView.swift in Sources */,
+				A1000019 /* Views/SettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -262,26 +268,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A1000044 /* AudioDownloaderIntegrationTests.swift in Sources */,
-				A100001D /* WeatherServiceTests.swift in Sources */,
-				A100001F /* ChildSelectorTests.swift in Sources */,
-				A1000021 /* MessageGeneratorTests.swift in Sources */,
-				A1000023 /* NumberToWordsTests.swift in Sources */,
-				A1000025 /* MainViewModelTests.swift in Sources */,
+				A1000044 /* Services/AudioDownloaderIntegrationTests.swift in Sources */,
+				A100001D /* Services/WeatherServiceTests.swift in Sources */,
+				A100001F /* Utils/ChildSelectorTests.swift in Sources */,
+				A1000021 /* Utils/MessageGeneratorTests.swift in Sources */,
+				A1000023 /* Utils/NumberToWordsTests.swift in Sources */,
+				A1000025 /* ViewModels/MainViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-/* END PBXSourcesBuildPhase section */
+/* End PBXSourcesBuildPhase section */
 
-/* BEGIN PBXTargetDependency section */
+/* Begin PBXTargetDependency section */
 		A1000039 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = A1000028 /* NanaPoppy */;
 			targetProxy = A1000027 /* PBXContainerItemProxy */;
 		};
-/* END PBXTargetDependency section */
+/* End PBXTargetDependency section */
 
-/* BEGIN XCBuildConfiguration section */
+/* Begin XCBuildConfiguration section */
 		A100003B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -405,6 +411,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Q83U52SPD3;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -428,6 +435,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Q83U52SPD3;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -476,9 +484,9 @@
 			};
 			name = Release;
 		};
-/* END XCBuildConfiguration section */
+/* End XCBuildConfiguration section */
 
-/* BEGIN XCConfigurationList section */
+/* Begin XCConfigurationList section */
 		A1000032 /* Build configuration list for PBXNativeTarget "NanaPoppy" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -506,9 +514,9 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-/* END XCConfigurationList section */
+/* End XCConfigurationList section */
 
-/* BEGIN XCRemoteSwiftPackageReference section */
+/* Begin XCRemoteSwiftPackageReference section */
 		A1000041 /* XCRemoteSwiftPackageReference "ZIPFoundation" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/weichsel/ZIPFoundation.git";
@@ -517,15 +525,15 @@
 				minimumVersion = 0.9.0;
 			};
 		};
-/* END XCRemoteSwiftPackageReference section */
+/* End XCRemoteSwiftPackageReference section */
 
-/* BEGIN XCSwiftPackageProductDependency section */
+/* Begin XCSwiftPackageProductDependency section */
 		A1000042 /* ZIPFoundation */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = A1000041 /* XCRemoteSwiftPackageReference "ZIPFoundation" */;
 			productName = ZIPFoundation;
 		};
-/* END XCSwiftPackageProductDependency section */
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = A1000026 /* Project object */;
 }
