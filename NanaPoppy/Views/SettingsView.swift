@@ -50,6 +50,17 @@ struct SettingsView: View {
                     }
                     .disabled(viewModel.isSyncing)
                 }
+                
+                Section(header: Text("About")) {
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("For detailed instructions on configuring API keys, location formats, and audio resources, please visit the project repository.")
+                            .font(.footnote)
+                            .foregroundColor(.secondary)
+                        
+                        Link("View Repository on GitHub", destination: URL(string: "https://github.com/rlucente-retro/nana-poppy-ios")!)
+                            .font(.body)
+                    }
+                }
             }
             .navigationTitle("Settings")
             .toolbar {
