@@ -35,16 +35,6 @@ class SettingsRepository {
         set { defaults.set(newValue, forKey: "zip_url") }
     }
 
-    var location1Query: String {
-        get { defaults.string(forKey: "location1_query") ?? "Waynesboro,PA,US" }
-        set { defaults.set(newValue, forKey: "location1_query") }
-    }
-
-    var location2Query: String {
-        get { defaults.string(forKey: "location2_query") ?? "Ocean City,MD,US" }
-        set { defaults.set(newValue, forKey: "location2_query") }
-    }
-
     func isConfigured() -> Bool {
         return owmApiKey != nil && !owmApiKey!.trimmingCharacters(in: .whitespaces).isEmpty &&
                zipUrl != nil && !zipUrl!.trimmingCharacters(in: .whitespaces).isEmpty

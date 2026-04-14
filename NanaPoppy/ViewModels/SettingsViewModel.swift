@@ -20,8 +20,6 @@ import SwiftUI
 class SettingsViewModel: ObservableObject {
     @Published var owmApiKey: String = ""
     @Published var zipUrl: String = ""
-    @Published var location1Query: String = ""
-    @Published var location2Query: String = ""
     @Published var isSyncing = false
     @Published var syncResult: ValidationResult?
     @Published var showError = false
@@ -33,15 +31,11 @@ class SettingsViewModel: ObservableObject {
     init() {
         owmApiKey = settings.owmApiKey ?? ""
         zipUrl = settings.zipUrl ?? ""
-        location1Query = settings.location1Query
-        location2Query = settings.location2Query
     }
 
     func save() {
         settings.owmApiKey = owmApiKey
         settings.zipUrl = zipUrl
-        settings.location1Query = location1Query
-        settings.location2Query = location2Query
     }
 
     func sync() {

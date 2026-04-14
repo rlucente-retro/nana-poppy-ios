@@ -29,11 +29,6 @@ struct SettingsView: View {
                     TextField("Audio ZIP URL", text: $viewModel.zipUrl)
                 }
                 
-                Section(header: Text("Locations")) {
-                    TextField("Location 1 (e.g. Waynesboro,PA,US)", text: $viewModel.location1Query)
-                    TextField("Location 2 (e.g. Ocean City,MD,US)", text: $viewModel.location2Query)
-                }
-                
                 Section {
                     Button("Save Settings") {
                         viewModel.save()

@@ -63,9 +63,10 @@ class MainViewModel: ObservableObject {
         
         Task {
             do {
+                let locations = loadLocations(audioDir: audioDir)
                 let now = Date()
-                let temp1 = try? await fetchWeather(location: settings.location1Query)
-                let temp2 = try? await fetchWeather(location: settings.location2Query)
+                let temp1 = try? await fetchWeather(location: locations?.location1 ?? "Waynesboro,PA,US")
+                let temp2 = try? await fetchWeather(location: locations?.location2 ?? "Ocean City,MD,US")
                 
                 let selectedChildren = ChildSelector.select(available: availableChildren, count: 4)
                 
@@ -104,6 +105,12 @@ class MainViewModel: ObservableObject {
         let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
         let photoURL = documentsURL.appendingPathComponent("audio/\(childId)/photo.jpg")
         return fileManager.fileExists(atPath: photoURL.path) ? photoURL : nil
+    }
+
+    private func loadLocations(audioDir: URL) -> LocationData? {
+        let fileURL = audioDir.appendingPathComponent("locations.json")
+        guard let data = try? Data(contentsOf: fileURL) else { return nil }
+        return try? JSONDecoder().decode(LocationData.self, from: data)
     }
     
     private func fetchWeather(location: String) async throws -> Int? {
