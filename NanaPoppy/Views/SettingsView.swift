@@ -81,6 +81,7 @@ struct SettingsView: View {
                 }
             }
         }
+        .navigationViewStyle(.stack)
     }
 }
 
@@ -119,6 +120,7 @@ struct SyncResultView: View {
                 }
             }
         }
+        .navigationViewStyle(.stack)
     }
 }
 

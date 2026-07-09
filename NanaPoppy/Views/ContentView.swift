@@ -20,6 +20,10 @@ struct ContentView: View {
     @StateObject private var viewModel = MainViewModel()
     @State private var showingSettings = false
 
+    private var isPad: Bool {
+        UIDevice.current.userInterfaceIdiom == .pad
+    }
+
     var body: some View {
         NavigationView {
             ZStack {
@@ -38,6 +42,7 @@ struct ContentView: View {
                         Image("Logo")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
+                            .frame(maxWidth: isPad ? 400 : nil, maxHeight: isPad ? 400 : nil)
                     }
                     .edgesIgnoringSafeArea(.all)
                 }
@@ -50,6 +55,7 @@ struct ContentView: View {
                             .padding()
                             .background(Color.white.opacity(0.7))
                             .cornerRadius(10)
+                            .frame(maxWidth: isPad ? 500 : nil)
                     }
                     
                     Spacer()
@@ -60,15 +66,15 @@ struct ContentView: View {
                         ZStack {
                             Circle()
                                 .fill(viewModel.isPlaying ? Color.gray.opacity(0.8) : Color.blue.opacity(0.8))
-                                .frame(width: 150, height: 150)
+                                .frame(width: isPad ? 220 : 150, height: isPad ? 220 : 150)
                             
                             Text(viewModel.isPlaying ? "Playing..." : "Play")
-                                .font(.title)
+                                .font(isPad ? .largeTitle : .title)
                                 .foregroundColor(.white)
                         }
                     }
                     .disabled(viewModel.isPlaying)
-                    .padding(.bottom, 30)
+                    .padding(.bottom, isPad ? 60 : 30)
                 }
             }
             .navigationTitle("Nana & Poppy")
@@ -86,6 +92,7 @@ struct ContentView: View {
                 SettingsView()
             }
         }
+        .navigationViewStyle(.stack)
     }
 }
 
