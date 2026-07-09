@@ -30,6 +30,7 @@
 		A1000046 /* Utils/KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000045 /* Utils/KeychainHelper.swift */; };
 		A1000048 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1000047 /* Assets.xcassets */; };
 		A100004A /* Models/LocationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000049 /* Models/LocationData.swift */; };
+		A100004C /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = A100004B /* PrivacyInfo.xcprivacy */; };
 		DA0771042F7B141C005BBFCD /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = A1000042 /* ZIPFoundation */; };
 /* End PBXBuildFile section */
 
@@ -69,6 +70,7 @@
 		A1000045 /* Utils/KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils/KeychainHelper.swift; sourceTree = "<group>"; };
 		A1000047 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A1000049 /* Models/LocationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models/LocationData.swift; sourceTree = "<group>"; };
+		A100004B /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +112,7 @@
 				A1000018 /* Views/SettingsView.swift */,
 				A100001A /* Resources/phrase-list.txt */,
 				A1000047 /* Assets.xcassets */,
+				A100004B /* PrivacyInfo.xcprivacy */,
 			);
 			path = NanaPoppy;
 			sourceTree = "<group>";
@@ -233,6 +236,7 @@
 			files = (
 				A100001B /* Resources/phrase-list.txt in Resources */,
 				A1000048 /* Assets.xcassets in Resources */,
+				A100004C /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -418,8 +422,10 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Q83U52SPD3;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -444,8 +450,10 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Q83U52SPD3;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

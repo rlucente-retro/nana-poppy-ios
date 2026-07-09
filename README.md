@@ -141,6 +141,17 @@ Each child's directory must include the following files. Filenames must match th
 
 ---
 
+## App Store Submission Requirements
+
+To comply with the latest Apple Developer submission guidelines:
+
+1. **Privacy Manifest ([PrivacyInfo.xcprivacy](file:///Users/richardlucente/development/git/nana-poppy-ios/NanaPoppy/PrivacyInfo.xcprivacy)):** A privacy manifest is included. It declares:
+   - **`NSPrivacyAccessedAPICategoryUserDefaults` (Reason `CA92.1`):** Storing and retrieving configuration settings like the ZIP URL.
+   - **`NSPrivacyAccessedAPICategoryFileTimestamp` (Reason `DDA9.1`):** Performing local file management operations inside the app's container directory (needed for audio file unzipping via ZIPFoundation).
+2. **Encryption Compliance:** The build configuration includes the `ITSAppUsesNonExemptEncryption` flag set to `NO`, declaring that the app uses only standard encryption (HTTPS/Keychain) and bypassing App Store Connect encryption questionnaire prompts.
+
+---
+
 ## Contributing
 
 This is a private project, but suggestions and improvements are welcome. Please ensure any new features include corresponding unit tests.
