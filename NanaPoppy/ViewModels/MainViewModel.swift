@@ -62,39 +62,31 @@ class MainViewModel: ObservableObject {
         currentChildId = nil
         
         Task {
-            do {
-                let locations = loadLocations(audioDir: audioDir)
-                let now = Date()
-                let temp1 = try? await fetchWeather(location: locations?.location1 ?? "Waynesboro,PA,US")
-                let temp2 = try? await fetchWeather(location: locations?.location2 ?? "Ocean City,MD,US")
-                
-                let selectedChildren = ChildSelector.select(available: availableChildren, count: 4)
-                
-                let messages: [(childId: String, words: [String])] = [
-                    (selectedChildren[0], MessageGenerator.generateDateMsg(now: now)),
-                    (selectedChildren[1], MessageGenerator.generateTimeMsg(now: now)),
-                    (selectedChildren[2], MessageGenerator.generateTempMsg(location: "location1", temp: temp1)),
-                    (selectedChildren[3], MessageGenerator.generateTempMsg(location: "location2", temp: temp2))
-                ]
-                
-                await MainActor.run {
-                    player.playPlaylist(
-                        segments: messages,
-                        onSegmentChange: { childId in
-                            self.currentChildId = childId
-                        },
-                        onComplete: {
-                            self.isPlaying = false
-                            self.currentChildId = nil
-                        }
-                    )
-                }
-            } catch {
-                await MainActor.run {
-                    self.status = "Error: \(error.localizedDescription)"
-                    self.isPlaying = false
-                    self.currentChildId = nil
-                }
+            let locations = loadLocations(audioDir: audioDir)
+            let now = Date()
+            let temp1 = await fetchWeather(location: locations?.location1 ?? "Waynesboro,PA,US")
+            let temp2 = await fetchWeather(location: locations?.location2 ?? "Ocean City,MD,US")
+            
+            let selectedChildren = ChildSelector.select(available: availableChildren, count: 4)
+            
+            let messages: [(childId: String, words: [String])] = [
+                (selectedChildren[0], MessageGenerator.generateDateMsg(now: now)),
+                (selectedChildren[1], MessageGenerator.generateTimeMsg(now: now)),
+                (selectedChildren[2], MessageGenerator.generateTempMsg(location: "location1", temp: temp1)),
+                (selectedChildren[3], MessageGenerator.generateTempMsg(location: "location2", temp: temp2))
+            ]
+            
+            await MainActor.run {
+                player.playPlaylist(
+                    segments: messages,
+                    onSegmentChange: { childId in
+                        self.currentChildId = childId
+                    },
+                    onComplete: {
+                        self.isPlaying = false
+                        self.currentChildId = nil
+                    }
+                )
             }
         }
     }
@@ -113,7 +105,7 @@ class MainViewModel: ObservableObject {
         return try? JSONDecoder().decode(LocationData.self, from: data)
     }
     
-    private func fetchWeather(location: String) async throws -> Int? {
+    private func fetchWeather(location: String) async -> Int? {
         do {
             let response = try await weatherService.getCurrentWeather(query: location, apiKey: settings.owmApiKey!)
             return Int(response.main.temp)
