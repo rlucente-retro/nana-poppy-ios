@@ -25,9 +25,9 @@ playground.xcworkspace
 # .build/
 
 ## Package.resolved
-# Package.resolved should be checked in for applications, but we can exclude it
-# if the user specifically asked for a clean directory without SwiftPM artifacts.
-Package.resolved
+# Package.resolved should be checked in for applications.
+# Commented out so Xcode Cloud can resolve Swift Packages.
+# Package.resolved
 
 ## macOS
 .DS_Store
