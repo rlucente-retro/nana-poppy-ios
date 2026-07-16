@@ -19,24 +19,12 @@ import Foundation
 class SettingsRepository {
     private let defaults = UserDefaults.standard
 
-    var owmApiKey: String? {
-        get { KeychainHelper.load(key: "owm_api_key") }
-        set {
-            if let value = newValue, !value.isEmpty {
-                KeychainHelper.save(key: "owm_api_key", data: value)
-            } else {
-                KeychainHelper.delete(key: "owm_api_key")
-            }
-        }
-    }
-
     var zipUrl: String? {
         get { defaults.string(forKey: "zip_url") }
         set { defaults.set(newValue, forKey: "zip_url") }
     }
 
     func isConfigured() -> Bool {
-        return owmApiKey != nil && !owmApiKey!.trimmingCharacters(in: .whitespaces).isEmpty &&
-               zipUrl != nil && !zipUrl!.trimmingCharacters(in: .whitespaces).isEmpty
+        return zipUrl != nil && !zipUrl!.trimmingCharacters(in: .whitespaces).isEmpty
     }
 }

@@ -6,7 +6,7 @@ The **Nana & Poppy** app is a personalized iOS application designed to provide d
 
 - **Personalized Voice Messages:** Plays audio clips of grandchildren speaking the time, date, and weather.
 - **Dynamic Greeting:** Greets Nana and Poppy with "Good morning", "Afternoon", etc., based on the current time of day.
-- **Real-time Weather:** Fetches and speaks the current temperature for two configurable locations using the OpenWeatherMap API.
+- **Real-time Weather:** Fetches and speaks the current temperature for two configurable locations using the Open-Meteo API (requires no API key).
 - **Remote Content Sync:** Downloads and updates grandchild audio clips from a remotely hosted ZIP file.
 - **Modern SwiftUI Interface:** A clean, reactive UI built with SwiftUI and Combine.
 - **AVFoundation Audio:** Uses `AVQueuePlayer` for seamless, high-quality audio playback of message segments.
@@ -18,10 +18,9 @@ The **Nana & Poppy** app is a personalized iOS application designed to provide d
 
 Before building and configuring the app, you will need:
 
-1.  **OpenWeatherMap API Key:** A free or paid API key from [OpenWeatherMap](https://openweathermap.org/api).
-2.  **Audio Hosting:** A URL pointing to a publicly accessible (or direct-download) ZIP file containing the grandchild audio clips.
-3.  **Grandchild Audio Clips:** Recorded MP3 files for each phrase (see the [Audio Preparation Guide](#audio-preparation-guide) below).
-4.  **Xcode:** Version 13.0 or later, running on macOS.
+1.  **Audio Hosting:** A URL pointing to a publicly accessible (or direct-download) ZIP file containing the grandchild audio clips.
+2.  **Grandchild Audio Clips:** Recorded MP3 files for each phrase (see the [Audio Preparation Guide](#audio-preparation-guide) below).
+3.  **Xcode:** Version 13.0 or later, running on macOS.
 
 ---
 
@@ -48,10 +47,9 @@ Run the comprehensive unit test suite to verify message generation and business 
 Once the app is running, you must configure it via the **Settings** menu:
 
 1.  On the main screen, tap the **Settings** (gear) icon in the top right.
-2.  **OpenWeatherMap API Key:** Enter your OWM API key.
-3.  **Audio ZIP URL:** Enter the direct download URL for your audio clips (e.g., `https://example.com/audio.zip`).
-4.  **Save & Sync:**
-    *   Tap **Save Settings** to store your configuration in `Keychain` and `UserDefaults`.
+2.  **Audio ZIP URL:** Enter the direct download URL for your audio clips (e.g., `https://example.com/audio.zip`).
+3.  **Save & Sync:**
+    *   Tap **Save Settings** to store your configuration in `UserDefaults`.
     *   Tap **Sync Audio** to download and unzip the audio clips using `ZIPFoundation`. The app will automatically update the **Location Query Strings** from the `locations.json` file included in the ZIP.
     *   The app will show the sync results, including any missing phrases for each child.
 
@@ -82,16 +80,34 @@ audio.zip
 
 ### locations.json File
 
-The `locations.json` file defines the query strings used by the weather service for the two locations recorded by the grandchildren. Its format is:
+The `locations.json` file defines the zip codes used by the weather service for the two locations recorded by the grandchildren. Its format is:
 
 ```json
 {
-  "location1": "Waynesboro,PA,US",
-  "location2": "Ocean City,MD,US"
+  "location1": "17268",
+  "location2": "21842"
 }
 ```
 
 This ensures that the real-time weather data matches the specific locations identified in the audio clips.
+
+#### Validating ZIP Codes with Open-Meteo
+
+Since the app uses Open-Meteo's Geocoding API to dynamically resolve these ZIP codes into coordinate values, you should validate that Open-Meteo correctly recognizes the ZIP code before deploying it.
+
+To validate if a ZIP code will work:
+1. Open a web browser or use a command-line tool like `curl`.
+2. Construct and call a URL querying the Open-Meteo Geocoding Search endpoint with your ZIP code:
+   ```text
+   https://geocoding-api.open-meteo.com/v1/search?name=YOUR_ZIP_CODE
+   ```
+   *Example URL for Waynesboro, Pennsylvania, United States (ZIP code 17268):*
+   ```text
+   https://geocoding-api.open-meteo.com/v1/search?name=17268
+   ```
+3. Look at the JSON response:
+   - **Successful Query:** The response will include a `results` array containing the matched city, state/region, and country along with coordinates (`latitude`/`longitude`). If the correct target area matches your ZIP, it will work.
+   - **Failed/Unresolved Query:** If the `results` key is missing or empty, the ZIP code is not recognized by the database.
 
 ### Phrase List
 
@@ -105,8 +121,8 @@ Each child's directory must include the following files. Filenames must match th
 | `the_time` | "The time" |
 | `today` | "Today" |
 | `the_current_temperature_for` | "The current temperature for" |
-| `location1` | Name of their primary location (e.g., recorded as "Waynesboro") |
-| `location2` | Name of their secondary location (e.g., recorded as "Ocean City") |
+| `location1` | Name of their primary location (e.g., recorded as "Waynesboro, Pennsylvania, United States") |
+| `location2` | Name of their secondary location (e.g., recorded as "Ocean City, Maryland, United States") |
 | `is`, `and`, `degrees`, `minus` | Connecting words |
 | `am`, `pm` | AM/PM markers |
 | `january` ... `december` | All 12 months |

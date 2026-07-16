@@ -8,11 +8,10 @@ This Privacy Policy describes how the **Nana & Poppy** iOS application handles y
 **Nana & Poppy** does not collect, store, or transmit any personal information or device data to the developer or any third party. 
 
 ### 2. Third-Party Services
-*   **OpenWeatherMap API:** The app communicates directly with the OpenWeatherMap API to retrieve current weather temperatures for locations specified by the user in the config file. No user identifiers, device location data (GPS), or tracking tokens are sent to OpenWeatherMap.
+*   **Open-Meteo API:** The app communicates directly with the Open-Meteo API to resolve ZIP codes to coordinates (via their Geocoding API) and to retrieve current weather temperatures (via their Weather Forecast API). No user identifiers, device location data (GPS), or tracking tokens are sent to Open-Meteo.
 
 ### 3. Local Storage and Data Security
 All configurations and settings entered into the app remain strictly on your physical device:
-*   **API Keys:** The OpenWeatherMap API Key is stored securely in the iOS system Keychain database.
 *   **Settings & Preferences:** Custom settings (like the Audio ZIP URL) are stored locally in the device's standard `UserDefaults` database.
 *   **Audio Data:** Custom audio files and photos downloaded from the ZIP URL are saved in the app's local sandbox documents directory and are never shared outside the app container.
 

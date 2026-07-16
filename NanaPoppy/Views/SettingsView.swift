@@ -24,8 +24,7 @@ struct SettingsView: View {
     var body: some View {
         NavigationView {
             Form {
-                Section(header: Text("API Configuration")) {
-                    SecureField("OpenWeatherMap API Key", text: $viewModel.owmApiKey)
+                Section(header: Text("Configuration")) {
                     TextField("Audio ZIP URL", text: $viewModel.zipUrl)
                 }
                 

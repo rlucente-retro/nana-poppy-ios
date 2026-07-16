@@ -18,7 +18,6 @@ import Foundation
 import SwiftUI
 
 class SettingsViewModel: ObservableObject {
-    @Published var owmApiKey: String = ""
     @Published var zipUrl: String = ""
     @Published var isSyncing = false
     @Published var syncResult: ValidationResult?
@@ -29,12 +28,10 @@ class SettingsViewModel: ObservableObject {
     private let downloader = AudioDownloader()
 
     init() {
-        owmApiKey = settings.owmApiKey ?? ""
         zipUrl = settings.zipUrl ?? ""
     }
 
     func save() {
-        settings.owmApiKey = owmApiKey
         settings.zipUrl = zipUrl
     }
 

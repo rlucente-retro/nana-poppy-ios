@@ -64,8 +64,8 @@ class MainViewModel: ObservableObject {
         Task {
             let locations = loadLocations(audioDir: audioDir)
             let now = Date()
-            let temp1 = await fetchWeather(location: locations?.location1 ?? "Waynesboro,PA,US")
-            let temp2 = await fetchWeather(location: locations?.location2 ?? "Ocean City,MD,US")
+            let temp1 = await fetchWeather(location: locations?.location1 ?? "17268")
+            let temp2 = await fetchWeather(location: locations?.location2 ?? "21842")
             
             let selectedChildren = ChildSelector.select(available: availableChildren, count: 4)
             
@@ -107,8 +107,8 @@ class MainViewModel: ObservableObject {
     
     private func fetchWeather(location: String) async -> Int? {
         do {
-            let response = try await weatherService.getCurrentWeather(query: location, apiKey: settings.owmApiKey!)
-            return Int(response.main.temp)
+            let response = try await weatherService.getCurrentWeather(query: location)
+            return Int(response.main.temp.rounded())
         } catch {
             await MainActor.run {
                 status = "Weather Error (\(location)): \(error.localizedDescription)"

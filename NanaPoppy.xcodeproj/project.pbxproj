@@ -27,7 +27,6 @@
 		A1000023 /* Utils/NumberToWordsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000022 /* Utils/NumberToWordsTests.swift */; };
 		A1000025 /* ViewModels/MainViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000024 /* ViewModels/MainViewModelTests.swift */; };
 		A1000044 /* Services/AudioDownloaderIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000043 /* Services/AudioDownloaderIntegrationTests.swift */; };
-		A1000046 /* Utils/KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000045 /* Utils/KeychainHelper.swift */; };
 		A1000048 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1000047 /* Assets.xcassets */; };
 		A100004A /* Models/LocationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000049 /* Models/LocationData.swift */; };
 		A100004C /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = A100004B /* PrivacyInfo.xcprivacy */; };
@@ -67,7 +66,6 @@
 		A1000029 /* NanaPoppy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NanaPoppy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A100002B /* NanaPoppyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NanaPoppyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1000043 /* Services/AudioDownloaderIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services/AudioDownloaderIntegrationTests.swift; sourceTree = "<group>"; };
-		A1000045 /* Utils/KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils/KeychainHelper.swift; sourceTree = "<group>"; };
 		A1000047 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A1000049 /* Models/LocationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models/LocationData.swift; sourceTree = "<group>"; };
 		A100004B /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
@@ -101,7 +99,6 @@
 				A1000004 /* Services/AudioDownloader.swift */,
 				A1000006 /* Services/AudioPlayer.swift */,
 				A1000008 /* Services/SettingsRepository.swift */,
-				A1000045 /* Utils/KeychainHelper.swift */,
 				A100000A /* Services/WeatherService.swift */,
 				A100000C /* Utils/ChildSelector.swift */,
 				A100000E /* Utils/MessageGenerator.swift */,
@@ -260,7 +257,6 @@
 				A1000005 /* Services/AudioDownloader.swift in Sources */,
 				A1000007 /* Services/AudioPlayer.swift in Sources */,
 				A1000009 /* Services/SettingsRepository.swift in Sources */,
-				A1000046 /* Utils/KeychainHelper.swift in Sources */,
 				A100000B /* Services/WeatherService.swift in Sources */,
 				A100000D /* Utils/ChildSelector.swift in Sources */,
 				A100000F /* Utils/MessageGenerator.swift in Sources */,

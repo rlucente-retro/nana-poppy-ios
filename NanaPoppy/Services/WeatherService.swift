@@ -23,28 +23,76 @@ class WeatherService {
         self.session = session
     }
 
-    func getCurrentWeather(query: String, apiKey: String) async throws -> WeatherResponse {
-        var components = URLComponents(string: "https://api.openweathermap.org/data/2.5/weather")!
-        components.queryItems = [
-            URLQueryItem(name: "q", value: query),
-            URLQueryItem(name: "appid", value: apiKey),
-            URLQueryItem(name: "units", value: "imperial")
+    func getCurrentWeather(query: String) async throws -> WeatherResponse {
+        let trimmedQuery = query.trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        var geocodeComponents = URLComponents(string: "https://geocoding-api.open-meteo.com/v1/search")!
+        geocodeComponents.queryItems = [
+            URLQueryItem(name: "name", value: trimmedQuery),
+            URLQueryItem(name: "count", value: "1")
         ]
         
-        guard let url = components.url else {
+        guard let geocodeUrl = geocodeComponents.url else {
             throw URLError(.badURL)
         }
         
-        let (data, response) = try await session.data(from: url)
+        var geocodeRequest = URLRequest(url: geocodeUrl)
+        geocodeRequest.cachePolicy = .reloadIgnoringLocalAndRemoteCacheData
         
-        guard let httpResponse = response as? HTTPURLResponse else {
+        let (geocodeData, geocodeResponse) = try await session.data(for: geocodeRequest)
+        
+        guard let httpGeocodeResponse = geocodeResponse as? HTTPURLResponse, httpGeocodeResponse.statusCode == 200 else {
             throw URLError(.badServerResponse)
         }
         
-        if httpResponse.statusCode != 200 {
-            throw NSError(domain: "WeatherService", code: httpResponse.statusCode, userInfo: [NSLocalizedDescriptionKey: String(data: data, encoding: .utf8) ?? "Unknown error"])
+        let geocodeResult = try JSONDecoder().decode(OpenMeteoGeocodingResponse.self, from: geocodeData)
+        guard let location = geocodeResult.results?.first else {
+            throw NSError(domain: "WeatherService", code: 404, userInfo: [NSLocalizedDescriptionKey: "Location not found for query: \(trimmedQuery)"])
         }
         
-        return try JSONDecoder().decode(WeatherResponse.self, from: data)
+        var weatherComponents = URLComponents(string: "https://api.open-meteo.com/v1/forecast")!
+        weatherComponents.queryItems = [
+            URLQueryItem(name: "latitude", value: String(location.latitude)),
+            URLQueryItem(name: "longitude", value: String(location.longitude)),
+            URLQueryItem(name: "current", value: "temperature_2m"),
+            URLQueryItem(name: "temperature_unit", value: "fahrenheit")
+        ]
+        
+        guard let weatherUrl = weatherComponents.url else {
+            throw URLError(.badURL)
+        }
+        
+        var weatherRequest = URLRequest(url: weatherUrl)
+        weatherRequest.cachePolicy = .reloadIgnoringLocalAndRemoteCacheData
+        
+        let (weatherData, weatherResponse) = try await session.data(for: weatherRequest)
+        
+        guard let httpWeatherResponse = weatherResponse as? HTTPURLResponse, httpWeatherResponse.statusCode == 200 else {
+            throw URLError(.badServerResponse)
+        }
+        
+        let openMeteoWeather = try JSONDecoder().decode(OpenMeteoWeatherResponse.self, from: weatherData)
+        
+        return WeatherResponse(
+            main: MainData(temp: openMeteoWeather.current.temperature_2m),
+            name: location.name
+        )
     }
+}
+
+private struct OpenMeteoGeocodingResponse: Codable {
+    let results: [GeocodingResult]?
+}
+
+private struct GeocodingResult: Codable {
+    let latitude: Double
+    let longitude: Double
+    let name: String
+}
+
+private struct OpenMeteoWeatherResponse: Codable {
+    struct CurrentWeather: Codable {
+        let temperature_2m: Float
+    }
+    let current: CurrentWeather
 }

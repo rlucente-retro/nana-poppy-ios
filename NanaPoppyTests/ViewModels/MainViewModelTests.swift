@@ -41,7 +41,7 @@ final class MainViewModelTests: XCTestCase {
         try? fileManager.createDirectory(at: child1Dir, withIntermediateDirectories: true)
         
         // Create mock locations.json
-        let locations = LocationData(location1: "Waynesboro,PA,US", location2: "Ocean City,MD,US")
+        let locations = LocationData(location1: "17268", location2: "21842")
         if let data = try? JSONEncoder().encode(locations) {
             try? data.write(to: audioDir.appendingPathComponent("locations.json"))
         }
@@ -51,7 +51,6 @@ final class MainViewModelTests: XCTestCase {
 
     func testPlaySuccess() async {
         mockSettings.configured = true
-        mockSettings.apiKey = "fake_key"
         
         let startExpectation = XCTestExpectation(description: "Playback started")
         mockPlayer.onPlayPlaylist = {
@@ -84,7 +83,7 @@ final class MainViewModelTests: XCTestCase {
 
 class MockWeatherService: WeatherService {
     var getCurrentWeatherCalled = false
-    override func getCurrentWeather(query: String, apiKey: String) async throws -> WeatherResponse {
+    override func getCurrentWeather(query: String) async throws -> WeatherResponse {
         getCurrentWeatherCalled = true
         return WeatherResponse(main: MainData(temp: 72.5), name: query)
     }
@@ -92,15 +91,9 @@ class MockWeatherService: WeatherService {
 
 class MockSettingsRepository: SettingsRepository {
     var configured = false
-    var apiKey: String?
     
     override func isConfigured() -> Bool {
         return configured
-    }
-    
-    override var owmApiKey: String? {
-        get { apiKey }
-        set { apiKey = newValue }
     }
 }
 

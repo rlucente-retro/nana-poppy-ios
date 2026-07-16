@@ -30,21 +30,34 @@ final class WeatherServiceTests: XCTestCase {
     }
 
     func testGetCurrentWeatherSuccess() async throws {
-        let json = """
-            {
-                "main": {
-                    "temp": 72.5
-                },
-                "name": "Test City"
-            }
-        """.data(using: .utf8)!
-        
         MockURLProtocol.requestHandler = { request in
             let response = HTTPURLResponse(url: request.url!, statusCode: 200, httpVersion: nil, headerFields: nil)!
-            return (response, json)
+            if request.url?.host == "geocoding-api.open-meteo.com" {
+                let json = """
+                {
+                    "results": [
+                        {
+                            "latitude": 39.7562,
+                            "longitude": -77.5811,
+                            "name": "Test City"
+                        }
+                    ]
+                }
+                """.data(using: .utf8)!
+                return (response, json)
+            } else {
+                let json = """
+                {
+                    "current": {
+                        "temperature_2m": 72.5
+                    }
+                }
+                """.data(using: .utf8)!
+                return (response, json)
+            }
         }
 
-        let response = try await service.getCurrentWeather(query: "Test City", apiKey: "fake_key")
+        let response = try await service.getCurrentWeather(query: "Test City")
 
         XCTAssertEqual(response.main.temp, 72.5)
         XCTAssertEqual(response.name, "Test City")
@@ -52,16 +65,22 @@ final class WeatherServiceTests: XCTestCase {
 
     func testGetCurrentWeatherFailure() async {
         MockURLProtocol.requestHandler = { request in
-            let response = HTTPURLResponse(url: request.url!, statusCode: 401, httpVersion: nil, headerFields: nil)!
-            return (response, "Unauthorized".data(using: .utf8)!)
+            let response = HTTPURLResponse(url: request.url!, statusCode: 200, httpVersion: nil, headerFields: nil)!
+            let json = """
+            {
+                "results": []
+            }
+            """.data(using: .utf8)!
+            return (response, json)
         }
 
         do {
-            _ = try await service.getCurrentWeather(query: "Test City", apiKey: "invalid_key")
+            _ = try await service.getCurrentWeather(query: "Test City")
             XCTFail("Expected error to be thrown")
         } catch {
             let nsError = error as NSError
-            XCTAssertEqual(nsError.code, 401)
+            XCTAssertEqual(nsError.domain, "WeatherService")
+            XCTAssertEqual(nsError.code, 404)
         }
     }
 }
