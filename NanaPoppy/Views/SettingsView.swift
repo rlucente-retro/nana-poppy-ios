@@ -47,7 +47,7 @@ struct SettingsView: View {
                 
                 Section(header: Text("About")) {
                     VStack(alignment: .leading, spacing: 8) {
-                        Text("For detailed instructions on configuring API keys, location formats, and audio resources, please visit the project repository.")
+                        Text("For detailed instructions on location formats and audio resources, please visit the project repository.")
                             .font(.footnote)
                             .foregroundColor(.secondary)
                         
