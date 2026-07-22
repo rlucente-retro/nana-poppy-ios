@@ -53,7 +53,12 @@ Each grandchild needs to record a set of short individual words and phrases. Whe
 2. **Quiet Room:** Record in a quiet room with minimal background noise (turn off TVs, fans, and close windows).
 3. **Microphone Distance:** Hold the phone or microphone about 6 to 8 inches from the child's mouth.
 4. **Natural Speech:** Have the child speak clearly at a normal tone and speed.
-5. **Trim Silence:** Keep each recording concise, leaving very little silent space at the start or end of the audio clip.
+5. **Trim Silence ("Dead Air"):** Keep each recording concise, leaving very little silent space at the start or end of the audio clip so spoken sentences flow naturally. Recommended free tools to help trim dead air:
+   - **Audacity (Mac / Windows / Linux - Free & Open Source):** Has a built-in **"Truncate Silence"** feature (`Effect -> Truncate Silence`) that automatically detects and removes silent gaps across recordings.
+   - **GarageBand or Apple Voice Memos (Mac / iOS - Free):** Use the visual waveform editor to drag the handle edges and crop out quiet space at the beginning and end of clips.
+   - **Online Web Editors (Browser - Free):** Web tools like [AudioTrimmer](https://audiotrimmer.com) allow you to quickly trim silent ends and export directly to MP3 without installing software.
+   - **Mobile Editing Apps (iOS / Android - Free):** Apps like **WavePad Audio Editor**, **Lexis Audio Editor**, or **Ferrite Recording Studio** offer auto-trimming and silence removal on smartphones.
+
 6. **File Format:** Save or convert all audio files into **MP3 format** (`.mp3`).
 
 ---
