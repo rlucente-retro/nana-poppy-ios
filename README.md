@@ -1,86 +1,167 @@
 # Nana & Poppy iOS App
 
-The **Nana & Poppy** app is a personalized iOS application designed to provide daily greetings and information for grandparents using the recorded voices of their grandchildren. The app plays a sequence of messages—including the current date, time, and weather for two locations—randomly selecting a different grandchild's voice for each segment of the greeting.
+The **Nana & Poppy** app is a personalized iOS application designed to bring warm daily greetings and live information to grandparents using the recorded voices and photos of their grandchildren.
+
+When Nana or Poppy press **Play**, the app generates a complete personalized announcement—including the time of day greeting, current date, current time, and real-time weather forecasts for two custom locations—stitching together voice clips from different grandchildren for each phrase and displaying full-screen photos of each grandchild while they speak.
+
+---
+
+## Table of Contents
+
+- [Features](#features)
+- [User Guide: Personalizing Nana & Poppy](#user-guide-personalizing-nana--poppy)
+  - [Step 1: Record the Audio Clips](#step-1-record-the-audio-clips)
+  - [Step 2: Complete Required Phrase List](#step-2-complete-required-phrase-list)
+  - [Step 3: Add a Grandchild Photo](#step-3-add-a-grandchild-photo)
+  - [Step 4: Create the `locations.json` File](#step-4-create-the-locationsjson-file)
+  - [Step 5: Package the ZIP File](#step-5-package-the-zip-file)
+  - [Step 6: Host Your ZIP File Online](#step-6-host-your-zip-file-online)
+  - [Step 7: Sync in the App](#step-7-sync-in-the-app)
+- [Developer Guide](#developer-guide)
+  - [Prerequisites](#prerequisites)
+  - [Building & Running](#building--running)
+  - [Testing](#testing)
+  - [App Store & Privacy Compliance](#app-store--privacy-compliance)
+- [License](#license)
+
+---
 
 ## Features
 
 - **Personalized Voice Messages:** Plays audio clips of grandchildren speaking the time, date, and weather.
-- **Dynamic Greeting:** Greets Nana and Poppy with "Good morning", "Afternoon", etc., based on the current time of day.
-- **Real-time Weather:** Fetches and speaks the current temperature for two configurable locations using the Open-Meteo API (requires no API key).
-- **Remote Content Sync:** Downloads and updates grandchild audio clips from a remotely hosted ZIP file.
-- **Modern SwiftUI Interface:** A clean, reactive UI built with SwiftUI and Combine.
-- **AVFoundation Audio:** Uses `AVQueuePlayer` for seamless, high-quality audio playback of message segments.
-- **Dynamic Visuals:** Displays a **full-screen photo** of the grandchild currently speaking as the background while their specific audio segment is playing.
+- **Dynamic Visuals:** Displays a **full-screen photo** of the grandchild currently speaking as the background during their audio segment.
+- **Dynamic Greetings:** Automatically chooses "Good morning", "Good afternoon", "Good evening", or "Good night" based on the device clock.
+- **Real-Time Weather:** Fetches live temperatures for two locations using the free Open-Meteo API (no API key required).
+- **Remote Content Sync:** Securely downloads and updates voice clips and photos directly from a cloud ZIP file (e.g., Google Drive or Dropbox).
+- **Modern iOS Design:** Native SwiftUI interface optimized for both iPhone and iPad screens.
 
 ---
 
-## Prerequisites
+## User Guide: Personalizing Nana & Poppy
 
-Before building and configuring the app, you will need:
-
-1.  **Audio Hosting:** A URL pointing to a publicly accessible (or direct-download) ZIP file containing the grandchild audio clips.
-2.  **Grandchild Audio Clips:** Recorded MP3 files for each phrase (see the [Audio Preparation Guide](#audio-preparation-guide) below).
-3.  **Xcode:** Version 13.0 or later, running on macOS.
+Setting up custom recordings for your family requires no coding knowledge. Follow these 7 steps to create your personalized audio package.
 
 ---
 
-## Getting Started
+### Step 1: Record the Audio Clips
 
-### 1. Build & Install
+Each grandchild needs to record a set of short individual words and phrases. When the app runs, it pieces these recordings together into full sentences.
 
-1.  Clone the repository.
-2.  Open **`NanaPoppy.xcodeproj`** in Xcode.
-3.  Xcode will automatically resolve the **ZIPFoundation** dependency via Swift Package Manager.
-4.  Select a target (iOS Simulator or a physical iOS device).
-5.  Press **Cmd + R** to build and run.
+#### Recording Tips & Recommendations
 
-### 2. Testing
-
-Run the comprehensive unit test suite to verify message generation and business logic:
-1.  In Xcode, select the **NanaPoppy** scheme.
-2.  Press **Cmd + U** to run all tests.
+1. **Use Any Recording Device:** You can use Voice Memos on an iPhone, Voice Recorder on Android, or a computer microphone.
+2. **Quiet Room:** Record in a quiet room with minimal background noise (turn off TVs, fans, and close windows).
+3. **Microphone Distance:** Hold the phone or microphone about 6 to 8 inches from the child's mouth.
+4. **Natural Speech:** Have the child speak clearly at a normal tone and speed.
+5. **Trim Silence:** Keep each recording concise, leaving very little silent space at the start or end of the audio clip.
+6. **File Format:** Save or convert all audio files into **MP3 format** (`.mp3`).
 
 ---
 
-## Configuration
+### Step 2: Complete Required Phrase List
 
-Once the app is running, you must configure it via the **Settings** menu:
+Each grandchild's folder must contain **all 79 MP3 files** listed below. 
 
-1.  On the main screen, tap the **Settings** (gear) icon in the top right.
-2.  **Audio ZIP URL:** Enter the direct download URL for your audio clips (e.g., `https://example.com/audio.zip`).
-3.  **Save & Sync:**
-    *   Tap **Save Settings** to store your configuration in `UserDefaults`.
-    *   Tap **Sync Audio** to download and unzip the audio clips using `ZIPFoundation`. The app will automatically update the **Location Query Strings** from the `locations.json` file included in the ZIP.
-    *   The app will show the sync results, including any missing phrases for each child.
+> ⚠️ **Important Filename Rules:**
+> - Filenames must be **all lowercase**.
+> - Replace spaces with **underscores** `_` (for example, `nana_and_poppy.mp3`).
+> - Files must end with `.mp3`.
+
+> 💡 **Fixed Filenames vs. Custom Spoken Phrases:**
+> Several files require fixed filenames for the software to identify them, even though the actual spoken phrase is personalized for your family:
+> - **`nana_and_poppy.mp3`**: The file **must** be named `nana_and_poppy.mp3` so the software can locate it, but the child should speak whatever terms of endearment they naturally use (e.g., *"Grandma and Grandpa"*, *"Nana and Poppy"*, or *"Pop-Pop and Mimi"*).
+> - **`location1.mp3` & `location2.mp3`**: The files **must** be named `location1.mp3` and `location2.mp3`, but the child speaks the actual name of the location (e.g., *"Waynesboro, Pennsylvania"* or *"Ocean City, Maryland"*).
+
+#### 1. Core Greetings & Phrases (17 Files)
+
+| Spoken Phrase | Exact Filename | Description / Notes |
+| :--- | :--- | :--- |
+| "Good" | `good.mp3` | Opening greeting word |
+| "morning" | `morning.mp3` | Used for morning greetings (12:00 AM – 11:59 AM) |
+| "afternoon" | `afternoon.mp3` | Used for afternoon greetings (12:00 PM – 4:59 PM) |
+| "evening" | `evening.mp3` | Used for evening greetings (5:00 PM – 7:59 PM) |
+| "night" | `night.mp3` | Used for night greetings (8:00 PM – 11:59 PM) |
+| *(Terms of Endearment)* | `nana_and_poppy.mp3` | Named `nana_and_poppy.mp3`, but spoken as the child's terms of endearment (e.g., "Grandma and Grandpa") |
+| "The time" | `the_time.mp3` | Time announcement prefix |
+| "Today" | `today.mp3` | Date announcement prefix |
+| "The current temperature for" | `the_current_temperature_for.mp3` | Weather announcement prefix |
+| *(Primary Location Name)* | `location1.mp3` | Named `location1.mp3`, but spoken as the location name (e.g., "Waynesboro, Pennsylvania") |
+| *(Secondary Location Name)* | `location2.mp3` | Named `location2.mp3`, but spoken as the location name (e.g., "Ocean City, Maryland") |
+| "is" | `is.mp3` | Connecting verb |
+| "and" | `and.mp3` | Connecting word |
+| "degrees" | `degrees.mp3` | Weather temperature unit |
+| "minus" | `minus.mp3` | Used for below-zero temperatures |
+| "A M" | `am.mp3` | Morning time indicator |
+| "P M" | `pm.mp3` | Afternoon/evening time indicator |
+
+
+#### 2. Months of the Year (12 Files)
+
+| Month | Exact Filename | Month | Exact Filename |
+| :--- | :--- | :--- | :--- |
+| January | `january.mp3` | July | `july.mp3` |
+| February | `february.mp3` | August | `august.mp3` |
+| March | `march.mp3` | September | `september.mp3` |
+| April | `april.mp3` | October | `october.mp3` |
+| May | `may.mp3` | November | `november.mp3` |
+| June | `june.mp3` | December | `december.mp3` |
+
+#### 3. Day of the Month Ordinals (21 Files)
+
+| Ordinal | Exact Filename | Ordinal | Exact Filename |
+| :--- | :--- | :--- | :--- |
+| First (1st) | `first.mp3` | Twelfth (12th) | `twelfth.mp3` |
+| Second (2nd) | `second.mp3` | Thirteenth (13th) | `thirteenth.mp3` |
+| Third (3rd) | `third.mp3` | Fourteenth (14th) | `fourteenth.mp3` |
+| Fourth (4th) | `fourth.mp3` | Fifteenth (15th) | `fifteenth.mp3` |
+| Fifth (5th) | `fifth.mp3` | Sixteenth (16th) | `sixteenth.mp3` |
+| Sixth (6th) | `sixth.mp3` | Seventeenth (17th) | `seventeenth.mp3` |
+| Seventh (7th) | `seventh.mp3` | Eighteenth (18th) | `eighteenth.mp3` |
+| Eighth (8th) | `eighth.mp3` | Nineteenth (19th) | `nineteenth.mp3` |
+| Ninth (9th) | `ninth.mp3` | Twentieth (20th) | `twentieth.mp3` |
+| Tenth (10th) | `tenth.mp3` | Thirtieth (30th) | `thirtieth.mp3` |
+| Eleventh (11th) | `eleventh.mp3` | | |
+
+*(Note: For days 21–29 and 31, the app automatically combines numbers like `twenty.mp3` + `first.mp3` or `thirty.mp3` + `first.mp3`.)*
+
+#### 4. Numbers & Time Elements (29 Files)
+
+| Number / Word | Exact Filename | Number / Word | Exact Filename |
+| :--- | :--- | :--- | :--- |
+| "oh" (zero for minutes) | `oh.mp3` | Fifteen (15) | `fifteen.mp3` |
+| One (1) | `one.mp3` | Sixteen (16) | `sixteen.mp3` |
+| Two (2) | `two.mp3` | Seventeen (17) | `seventeen.mp3` |
+| Three (3) | `three.mp3` | Eighteen (18) | `eighteen.mp3` |
+| Four (4) | `four.mp3` | Nineteen (19) | `nineteen.mp3` |
+| Five (5) | `five.mp3` | Twenty (20) | `twenty.mp3` |
+| Six (6) | `six.mp3` | Thirty (30) | `thirty.mp3` |
+| Seven (7) | `seven.mp3` | Forty (40) | `forty.mp3` |
+| Eight (8) | `eight.mp3` | Fifty (50) | `fifty.mp3` |
+| Nine (9) | `nine.mp3` | Sixty (60) | `sixty.mp3` |
+| Ten (10) | `ten.mp3` | Seventy (70) | `seventy.mp3` |
+| Eleven (11) | `eleven.mp3` | Eighty (80) | `eighty.mp3` |
+| Twelve (12) | `twelve.mp3` | Ninety (90) | `ninety.mp3` |
+| Thirteen (13) | `thirteen.mp3` | Hundred (100) | `hundred.mp3` |
+| Fourteen (14) | `fourteen.mp3` | | |
 
 ---
 
-## Audio Preparation Guide
+### Step 3: Add a Grandchild Photo
 
-To fully personalize the app, you need to gather and organize audio clips for each grandchild.
+Inside each child's folder, include a photo file named **`photo.jpg`**.
 
-### Directory Structure
+- **Filename:** Must be named `photo.jpg` (lowercase).
+- **Format:** JPEG image format.
+- **Display:** When the app plays that grandchild's voice segment, their photo will automatically be displayed full-screen as the background.
 
-The ZIP file must contain a `locations.json` file at its root, followed by a directory for each child. Each child directory should contain their specific MP3 recordings. For example:
+---
 
-```text
-audio.zip
-├── locations.json
-├── owen/
-│   ├── good.mp3
-│   ├── morning.mp3
-│   ├── location1.mp3
-│   └── ...
-├── piper/
-│   ├── good.mp3
-│   ├── morning.mp3
-│   ├── location1.mp3
-│   └── ...
-```
+### Step 4: Create the `locations.json` File
 
-### locations.json File
+The app needs a small text file named `locations.json` to know which ZIP codes to query for weather forecasts. **Note: The values in `locations.json` must be valid 5-digit US ZIP codes only.**
 
-The `locations.json` file defines the zip codes used by the weather service for the two locations recorded by the grandchildren. Its format is:
+1. Open a text editor (such as **Notepad** on Windows or **TextEdit** on Mac set to Plain Text mode).
+2. Paste the following structure:
 
 ```json
 {
@@ -89,91 +170,127 @@ The `locations.json` file defines the zip codes used by the weather service for 
 }
 ```
 
-This ensures that the real-time weather data matches the specific locations identified in the audio clips.
+3. Replace `"17268"` with the ZIP code corresponding to your `location1.mp3` recording.
+4. Replace `"21842"` with the ZIP code corresponding to your `location2.mp3` recording.
+5. Save the file as **`locations.json`**.
 
-#### Validating ZIP Codes with Open-Meteo
+#### How to Test Your Location ZIP Code
 
-Since the app uses Open-Meteo's Geocoding API to dynamically resolve these ZIP codes into coordinate values, you should validate that Open-Meteo correctly recognizes the ZIP code before deploying it.
+You can test whether Open-Meteo recognizes your ZIP code before saving:
 
-To validate if a ZIP code will work:
-1. Open a web browser or use a command-line tool like `curl`.
-2. Construct and call a URL querying the Open-Meteo Geocoding Search endpoint with your ZIP code:
-   ```text
-   https://geocoding-api.open-meteo.com/v1/search?name=YOUR_ZIP_CODE
-   ```
-   *Example URL for Waynesboro, Pennsylvania, United States (ZIP code 17268):*
-   ```text
-   https://geocoding-api.open-meteo.com/v1/search?name=17268
-   ```
-3. Look at the JSON response:
-   - **Successful Query:** The response will include a `results` array containing the matched city, state/region, and country along with coordinates (`latitude`/`longitude`). If the correct target area matches your ZIP, it will work.
-   - **Failed/Unresolved Query:** If the `results` key is missing or empty, the ZIP code is not recognized by the database.
+1. Open a browser and visit:  
+   `https://geocoding-api.open-meteo.com/v1/search?name=YOUR_ZIP_CODE`  
+   *(Example for ZIP 17268: [https://geocoding-api.open-meteo.com/v1/search?name=17268](https://geocoding-api.open-meteo.com/v1/search?name=17268))*
+2. If the web page shows `"latitude"` and `"longitude"` coordinates for your location, it will work in the app.
 
-### Phrase List
-
-Each child's directory must include the following files. Filenames must match the phrase exactly (lowercase, underscores instead of spaces) and end in `.mp3`. Each directory should also include a `photo.jpg` file to be displayed when that child is speaking.
-
-| Phrase / Filename | Description / Notes |
-| :--- | :--- |
-| `good` | "Good" |
-| `morning`, `afternoon`, `evening`, `night` | Time of day greetings |
-| `nana_and_poppy` | "Nana and Poppy" or whatever terms of endearment the grandchildren use |
-| `the_time` | "The time" |
-| `today` | "Today" |
-| `the_current_temperature_for` | "The current temperature for" |
-| `location1` | Name of their primary location (e.g., recorded as "Waynesboro, Pennsylvania, United States") |
-| `location2` | Name of their secondary location (e.g., recorded as "Ocean City, Maryland, United States") |
-| `is`, `and`, `degrees`, `minus` | Connecting words |
-| `am`, `pm` | AM/PM markers |
-| `january` ... `december` | All 12 months |
-| `first` ... `nineteenth` | Ordinal numbers for days |
-| `twentieth`, `thirtieth` | Ordinal numbers for days |
-| `oh` | Used for minutes (e.g., "four oh five") |
-| `one` ... `twenty` | Cardinal numbers |
-| `thirty`, `forty`, `fifty`, `sixty` | Cardinal numbers |
-| `seventy`, `eighty`, `ninety`, `hundred` | Cardinal numbers |
-
-> **Note:** For a complete list of required filenames, refer to the [`phrase-list.txt`](NanaPoppy/Resources/phrase-list.txt) file.
-
-### Recording Tips
-
-- Record in a quiet environment.
-- Use the same microphone for consistency.
-- Save files as **MP3** format.
-- Keep the recordings concise with minimal silence at the beginning and end.
 
 ---
 
-## Usage
+### Step 5: Package the ZIP File
 
-1.  Ensure you have completed the **Configuration** and **Sync Audio** steps.
-2.  On the main screen, tap the **Play** button.
-3.  The app will:
-    - Determine the current time and fetch weather data via `WeatherService`.
-    - Generate a sequence of messages via `MessageGenerator`.
-    - Randomly select a child's voice for each segment via `ChildSelector`.
-    - Queue and play the audio sequence using `AudioPlayer`.
-    - **Dynamic Photo Display:** As each segment plays, the UI automatically updates to show the photo of the grandchild currently speaking (if a `photo.jpg` is present in their audio directory).
+Organize all files into a main folder structure, then compress it into a `.zip` archive.
+
+#### Required Folder Layout
+
+```text
+my_family_audio/
+├── locations.json
+├── owen/
+│   ├── photo.jpg
+│   ├── good.mp3
+│   ├── morning.mp3
+│   ├── location1.mp3
+│   └── ... (all 79 mp3 files)
+└── piper/
+    ├── photo.jpg
+    ├── good.mp3
+    ├── morning.mp3
+    ├── location1.mp3
+    └── ... (all 79 mp3 files)
+```
+
+#### How to Create a ZIP File
+
+- **On macOS:** Select `locations.json` and all grandchild subfolders -> Right-click -> Choose **Compress**.
+- **On Windows:** Select `locations.json` and all grandchild subfolders -> Right-click -> Choose **Compress to ZIP file** (or **Send to** -> **Compressed (zipped) folder**).
+- Rename the resulting file to something like `audio.zip`.
 
 ---
 
-## App Store Submission Requirements
+### Step 6: Host Your ZIP File Online
 
-To comply with the latest Apple Developer submission guidelines:
+To sync the audio into the app, upload `audio.zip` to a cloud service to get a public link.
 
-1. **Privacy Manifest ([PrivacyInfo.xcprivacy](file:///Users/richardlucente/development/git/nana-poppy-ios/NanaPoppy/PrivacyInfo.xcprivacy)):** A privacy manifest is included. It declares:
-   - **`NSPrivacyAccessedAPICategoryUserDefaults` (Reason `CA92.1`):** Storing and retrieving configuration settings like the ZIP URL.
-   - **`NSPrivacyAccessedAPICategoryFileTimestamp` (Reason `DDA9.1`):** Performing local file management operations inside the app's container directory (needed for audio file unzipping via ZIPFoundation).
-2. **Encryption Compliance:** The build configuration includes the `ITSAppUsesNonExemptEncryption` flag set to `NO`, declaring that the app uses only standard encryption (HTTPS/Keychain) and bypassing App Store Connect encryption questionnaire prompts.
+#### Using Google Drive (Recommended & Easiest)
+
+1. Upload `audio.zip` to your **Google Drive**.
+2. Right-click `audio.zip` in Google Drive and select **Share** -> **Share**.
+3. Under *General access*, change the setting from *Restricted* to **Anyone with the link**.
+4. Click **Copy link**.
+5. Paste this standard Google Drive share link directly into the app!  
+   *(The Nana & Poppy app automatically converts standard Google Drive links into direct download links.)*
+
+#### Using Dropbox or Personal Web Servers
+
+- **Dropbox:** Upload the file, create a share link, and make sure the link ends with `?dl=1` for a direct download.
+- **Web Server:** Any direct HTTPS link (e.g. `https://yourdomain.com/audio.zip`) is fully supported.
+
+---
+
+### Step 7: Sync in the App
+
+1. Launch the **Nana & Poppy** app on your iPhone or iPad.
+2. Tap the **Settings** gear icon in the top right corner.
+3. In the **Audio ZIP URL** field, paste your cloud link (e.g., your Google Drive link).
+4. Tap **Save Settings**.
+5. Tap **Sync Audio**.
+6. The app will download, extract, and check your files:
+   - A **green checkmark** indicates all 79 phrases are present.
+   - If any audio clips are missing, a **red warning** will display the exact missing file names so you can easily record and add them.
+7. Return to the main screen and tap **Play** to enjoy your personalized greeting!
+
+---
+
+## Developer Guide
+
+### Prerequisites
+
+- **macOS:** 12.0 or later.
+- **Xcode:** Version 13.0 or later.
+- **iOS Target:** iOS 15.0 or later.
+
+### Building & Running
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/rlucente-retro/nana-poppy-ios.git
+   ```
+2. Open **`NanaPoppy.xcodeproj`** in Xcode.
+3. Xcode will resolve the **ZIPFoundation** dependency automatically via Swift Package Manager.
+4. Select your target device or simulator and press **Cmd + R** to run.
+
+### Testing
+
+Run the full unit test suite covering message generation, child selection, weather parsing, and downloader logic:
+
+1. Open `NanaPoppy.xcodeproj` in Xcode.
+2. Press **Cmd + U** to run all tests.
+
+### App Store & Privacy Compliance
+
+- **Privacy Manifest ([PrivacyInfo.xcprivacy](file:///Users/richardlucente/development/git/nana-poppy-ios/NanaPoppy/PrivacyInfo.xcprivacy)):** Declares required reason codes for `UserDefaults` (`CA92.1`) and local file timestamp checks (`DDA9.1`).
+- **Encryption Compliance:** `ITSAppUsesNonExemptEncryption` is set to `NO` in build settings.
+- **Privacy Policy:** Read our complete [PRIVACY_POLICY.md](PRIVACY_POLICY.md).
 
 ---
 
 ## Contributing
 
-This is a private project, but suggestions and improvements are welcome. Please ensure any new features include corresponding unit tests.
+Contributions, bug reports, and feature requests are welcome. Please ensure any pull requests include corresponding unit tests.
 
 ---
 
 ## License
 
 This project is licensed under the Apache License 2.0. See the [LICENSE](LICENSE) file for details.
+
