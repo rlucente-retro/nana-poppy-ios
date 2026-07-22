@@ -39,7 +39,12 @@ When Nana or Poppy press **Play**, the app generates a complete personalized ann
 
 ## User Guide: Personalizing Nana & Poppy
 
-Setting up custom recordings for your family requires no coding knowledge. Follow these 7 steps to create your personalized audio package.
+Setting up custom recordings for your family requires no coding knowledge. **Configuration only needs to be performed once during initial setup.** 
+
+Once configured, everyday use is effortless—Nana & Poppy simply open the app and press **Play** as often as desired throughout the day. You only need to repeat configuration in the future if you want to update recordings (e.g., as grandchildren grow older, or when new grandchildren arrive).
+
+Follow these 7 steps to create your personalized audio package:
+
 
 ---
 
@@ -253,6 +258,12 @@ To sync the audio into the app, upload `audio.zip` to a cloud service to get a p
    - A **green checkmark** indicates all 79 phrases are present.
    - If any audio clips are missing, a **red warning** will display the exact missing file names so you can easily record and add them.
 7. Return to the main screen and tap **Play** to enjoy your personalized greeting!
+
+#### Everyday Usage & Updating Voice Recordings
+
+- **Everyday Usage:** After completing this one-time initial sync, the custom audio clips and photos are saved locally inside the app. Nana & Poppy can open the app and tap **Play** as often as they like—every morning, afternoon, or evening—without needing to configure settings or re-sync again.
+- **Updating as Grandchildren Grow:** When grandchildren grow up, their voices change, or new grandchildren are added to the family, simply add or update the MP3 audio clips in your folder, re-compress into `audio.zip`, and replace the file on your cloud host (e.g., Google Drive). Then open Settings in the app and tap **Sync Audio** to fetch the updated voices!
+
 
 ---
 
